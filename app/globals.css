@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Stratos";
+  src: url("/fonts/Stratos-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Stratos";
+  src: url("/fonts/Stratos-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Stratos";
+  src: url("/fonts/Stratos-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+body {
+  font-family: "Stratos";
+  font-weight: 600;
+}
