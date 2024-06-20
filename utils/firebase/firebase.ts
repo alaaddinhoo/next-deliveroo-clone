@@ -5,6 +5,9 @@ import {
   doc,
   getDoc,
   writeBatch,
+  query,
+  where,
+  getDocs,
 } from "firebase/firestore";
 import * as authErrors from "./authErorrs.json";
 import {
@@ -30,8 +33,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp);
-const auth = getAuth();
+export const db = getFirestore(firebaseApp);
+export const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
@@ -164,7 +167,7 @@ export const emailSignIn = async (email: string, password: string) => {
   }
 };
 
-const getDocumentById = async (collection: string, id: string) => {
+export const getDocumentById = async (collection: string, id: string) => {
   const docRef = doc(db, collection, id);
   const docSnap = await getDoc(docRef);
 
@@ -176,7 +179,7 @@ const getDocumentById = async (collection: string, id: string) => {
   }
 };
 
-const batchPostJsonDocuments = async (
+export const batchPostJsonDocuments = async (
   jsonDocuments: any[],
   collectionName: string
 ) => {
@@ -191,4 +194,11 @@ const batchPostJsonDocuments = async (
   await batch.commit();
 };
 
-export { db, auth, getDocumentById, batchPostJsonDocuments };
+export const getMenuByRestaurantID = async (restaurantID: string) => {
+  const menuRef = collection(db, "menu");
+  const q = query(menuRef, where("restaurantID", "==", restaurantID));
+  const querySnapshot = await getDocs(q);
+
+  const menus = querySnapshot.docs.map((doc) => doc.data());
+  return menus.length ? menus[0] : null; // Assuming there's only one document per restaurantID
+};

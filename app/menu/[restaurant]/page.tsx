@@ -5,11 +5,15 @@ import Image from "next/image";
 import { ArrowLeft, LogOut, Search, ShoppingBasket } from "lucide-react";
 
 import Link from "next/link";
-import { auth, getDocumentById } from "@/utils/firebase/firebase";
+import {
+  auth,
+  getDocumentById,
+  getMenuByRestaurantID,
+} from "@/utils/firebase/firebase";
 import { useRouter } from "next/navigation";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
-import { Restaurant } from "@/utils/typesFirebase";
+import { Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
 
 export default function Menu({ params }: any) {
   // async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -20,6 +24,7 @@ export default function Menu({ params }: any) {
   // }
 
   const [restaurantData, setRestaurantData] = useState<Restaurant | null>(null);
+  const [menuData, setMenuData] = useState<RestaurantMenu | null>(null);
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
@@ -30,7 +35,17 @@ export default function Menu({ params }: any) {
       setRestaurantData(data as Restaurant);
     };
 
+    const fetchRestaurantMenuData = async () => {
+      try {
+        const data = await getMenuByRestaurantID(params.restaurant);
+        setMenuData(data as RestaurantMenu);
+      } catch (error) {
+        console.error("Error fetching menu:", error);
+      }
+    };
+
     fetchRestaurantData();
+    fetchRestaurantMenuData();
   }, []);
 
   if (!restaurantData) {
@@ -83,28 +98,99 @@ export default function Menu({ params }: any) {
         </div>
       </div>
 
-      <div className="px-[64px] py-[20px]">
-        <button
-          className="w-full mx-auto text-[#00ccbb] font-normal flex items-center gap-2"
-          onClick={() => router.back()}
-        >
-          <ArrowLeft />
-          <div>Go Back</div>
-        </button>
+      {/* *********** content *********** */}
+      <div className="py-[20px] ">
+        <div className="px-[64px] space-y-4 mb-8">
+          <button
+            className="w-full mx-auto text-[#00ccbb] font-normal flex items-center gap-2"
+            onClick={() => router.back()}
+          >
+            <ArrowLeft />
+            <div>Go Back</div>
+          </button>
 
-        <div className="flex gap-6">
-          <div className="w-[30%] h-[30vh] relative">
-            <Image
-              src={restaurantData.coverImage}
-              fill
-              alt="cover image"
-            ></Image>
+          <div className="flex gap-6">
+            <div className="w-[30%] h-[30vh] relative">
+              <Image
+                src={restaurantData.coverImage}
+                fill
+                alt="cover image"
+              ></Image>
+            </div>
+
+            <div className="grow">{restaurantData.name}</div>
+            <div className="space-y-2">
+              <div>Deliver in 20 - 30 min</div>
+              <div></div>
+            </div>
           </div>
+        </div>
 
-          <div className="grow">{restaurantData.name}</div>
-          <div className="space-y-2">
-            <div>Deliver in 20 - 30 min</div>
-            <div></div>
+        <div className="border-[#eee] border-2 py-6">
+          <div className="px-[64px] flex gap-4">
+            {menuData?.categories.map((c, index) => (
+              <div
+                className={`font-normal text-[#00ccbb] py-1 ${
+                  index == 0
+                    ? "bg-[#00ccbb] text-white px-4 rounded-full"
+                    : undefined
+                }`}
+              >
+                {c.name}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="  bg-[#f9fbfa] pt-8">
+          <div className="flex gap-4 px-[64px]">
+            <div className="flex flex-col flex-wrap gap-12 grow ">
+              {menuData?.categories.map((c) => (
+                <div key={c.name}>
+                  <div className="text-2xl">{c.name}</div>
+                  <div className="pt-2 pb-4 font-light">{c.description}</div>
+                  <div className="grid grid-cols-3 gap-4  ">
+                    {c.items.map((i) => (
+                      <div
+                        key={i.name}
+                        className="flex justify-between  bg-white p-6 shadow-sm"
+                      >
+                        <div className="space-y-2 max-w-[150px]">
+                          <div> {i.name}</div>
+                          <div className="font-light text-sm text-gray-400 line-clamp-2">
+                            {i.description}
+                          </div>
+                          <div className="font-normal text-md text-gray-400">
+                            {i.price}
+                          </div>
+                        </div>
+                        <div className="border border-[#eee]">
+                          <Image
+                            src={i.image}
+                            width={150}
+                            height={150}
+                            alt="product image"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col self-start grow items-center p-12  bg-white shadow-sm">
+              <ShoppingBasket color="#abadad" size={36} />
+              <div className="font-normal text-sm text-[#abadad] mt-2">
+                Your basket is empty
+              </div>
+              <button
+                className="w-full py-4 mt-6 text-white bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
+                disabled={true}
+              >
+                Go to checkout
+              </button>
+            </div>
           </div>
         </div>
       </div>
