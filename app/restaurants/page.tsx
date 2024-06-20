@@ -15,28 +15,31 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Link from "next/link";
 import { auth } from "@/utils/firebase/firebase";
 import { useRouter } from "next/navigation";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 
 export default function Restaurants() {
-  // const router = useRouter();
   // async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
   //   const data = (await searchRestaurants(e.target.value, "")) as any;
   //   console.log(e.currentTarget);
   //   console.log(data);
   //   // restaurants = data;
   // }
-  //  const [signOut] = useSignOut(auth);
-  const [user, loading, error] = useAuthState(auth);
 
   const router = useRouter();
+  const [user, loading, error] = useAuthState(auth);
+  const [signOut] = useSignOut(auth);
 
   useEffect(() => {
-    console.log(auth.currentUser);
-    if (!user) {
+    console.log(user);
+    console.log(loading);
+
+    if (user == null) {
       router.push("/login");
+    } else if (!user?.emailVerified) {
+      router.push("/verifyAccount");
     }
-  }, [user]);
+  }, [user, loading]);
 
   return (
     <>
@@ -63,15 +66,14 @@ export default function Restaurants() {
         </div>
 
         <div className="flex gap-2 font-normal  items-center">
-          {auth.currentUser && (
+          <div>{user?.email}</div>
+
+          {user && (
             <button
               className="flex gap-2 px-6 py-2 justify-center border-[2px] border-[#eee]"
-              onClick={() => {
-                // Example of signing out
-                // Ensure auth.signOut() is correctly implemented in your app
-                auth.signOut().then(() => {
-                  router.push("/login");
-                });
+              onClick={async () => {
+                await auth.signOut().then();
+                router.push("/login");
               }}
             >
               <LogOut color="#00ccbb" />
@@ -246,9 +248,9 @@ export default function Restaurants() {
         </div>
 
         {/* ////////////////// main content ////////////////// */}
-        <div>
+        <div className=" w-full">
           <div className="space-y-4">
-            <div className="text-[22px]">Top picks in your neighbourhood</div>
+            {/* <div className="text-[22px]">Top picks in your neighbourhood</div> */}
 
             <TopPicks />
           </div>

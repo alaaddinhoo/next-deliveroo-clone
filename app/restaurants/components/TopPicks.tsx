@@ -31,6 +31,7 @@ export default function TopPicks() {
     <div className="font-normal">
       {/* <Suspense fallback="loading"> */}
       {data != null ? <Slider data={data} /> : "loading"}
+
       {/* </Suspense> */}
     </div>
   );

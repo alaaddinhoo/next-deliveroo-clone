@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  doc,
+  getDoc,
+  writeBatch,
+} from "firebase/firestore";
 import * as authErrors from "./authErorrs.json";
 import {
   getAuth,
@@ -14,12 +20,12 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD_1IBY-B5iU5WPZA7pcnr2bbv1-3Muyy4",
-  authDomain: "nextjs-test-8e44c.firebaseapp.com",
-  projectId: "nextjs-test-8e44c",
-  storageBucket: "nextjs-test-8e44c.appspot.com",
-  messagingSenderId: "735322299390",
-  appId: "1:735322299390:web:1b233ec8426a02aaca3eaf",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
@@ -158,4 +164,31 @@ export const emailSignIn = async (email: string, password: string) => {
   }
 };
 
-export { db, auth };
+const getDocumentById = async (collection: string, id: string) => {
+  const docRef = doc(db, collection, id);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log("No such document!");
+    return null;
+  }
+};
+
+const batchPostJsonDocuments = async (
+  jsonDocuments: any[],
+  collectionName: string
+) => {
+  const batch = writeBatch(db);
+  const collectionRef = collection(db, collectionName);
+
+  jsonDocuments.forEach((document) => {
+    const docRef = doc(collectionRef);
+    batch.set(docRef, document);
+  });
+
+  await batch.commit();
+};
+
+export { db, auth, getDocumentById, batchPostJsonDocuments };

@@ -13,6 +13,7 @@ const VerifyEmail = () => {
   const [verificationError, setVerificationError] = useState<null | string>(
     null
   );
+  const [userVerified, setUserVerified] = useState<boolean>(false);
   const router = useRouter();
   const searchParams = useSearchParams();
   const mode = searchParams.get("mode");
@@ -37,9 +38,8 @@ const VerifyEmail = () => {
       if (mode === "verifyEmail" && oobCode) {
         try {
           await verifyUser(oobCode);
-          await user?.reload();
+          setUserVerified(true);
           console.log(user);
-          // router.push("/restaurants"); // Redirect to dashboard if verified
         } catch (error: any) {
           setVerificationError(error.message);
           console.error("Error verifying email: ", error.code);
@@ -74,18 +74,33 @@ const VerifyEmail = () => {
         </div>
       </div>
 
-      <div className="grow space-y-4  w-[360px] content-center mx-auto">
+      <div className="grow  space-y-4  w-[360px] content-center mx-auto">
         <div className=" mb-8 flex flex-col gap-4 items-center text-center">
-          {mode === "verifyEmail" && oobCode && !verificationError ? (
-            <Loader2 className="animate-spin" size={72} color="#00ccbb" />
-          ) : (
-            <MailSearch size={72} color="#00ccbb" />
+          {userVerified && !verificationError && (
+            <div className="mb-8 flex flex-col gap-4 items-center text-center">
+              <MailSearch size={72} color="#00ccbb" />
+              <div className="text-3xl">Your account is verified</div>
+              <div className="text-[#a6b1b3] font-normal w-full">
+                You can now proceed to login to your account.
+              </div>
+            </div>
           )}
-          <div className="text-3xl">Verify your email</div>
-          <div className="text-[#a6b1b3] font-normal">
-            We have sent you an email, so check your inbox or junk folders to
-            proceed.
-          </div>
+
+          {!userVerified ||
+            (false && (
+              <div className="mb-8 flex flex-col gap-4 items-center text-center">
+                {mode === "verifyEmail" && oobCode && !verificationError ? (
+                  <Loader2 className="animate-spin" size={72} color="#00ccbb" />
+                ) : (
+                  <MailSearch size={72} color="#00ccbb" />
+                )}
+                <div className="text-3xl">Verify your email</div>
+                <div className="text-[#a6b1b3] font-normal">
+                  We have sent you an email, so check your inbox or junk folders
+                  to proceed.
+                </div>
+              </div>
+            ))}
         </div>
 
         {verificationError && (
@@ -94,13 +109,22 @@ const VerifyEmail = () => {
           </div>
         )}
 
-        <button
-          disabled={!user}
-          className="w-full text-[white] py-4 bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
-          onClick={handleResendVerificationLink}
-        >
-          Resend Verification Link
-        </button>
+        {userVerified && !verificationError ? (
+          <Link
+            href="/login"
+            className="flex grow justify-center text-[white] py-4 bg-[#00ccbb]"
+          >
+            Proceed to login
+          </Link>
+        ) : (
+          <button
+            disabled={!!((!mode || !oobCode || !email) && verificationError)}
+            className="w-full text-[white] py-4 bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
+            onClick={handleResendVerificationLink}
+          >
+            Resend Verification Link
+          </button>
+        )}
       </div>
     </div>
   );
