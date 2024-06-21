@@ -13,7 +13,9 @@ import {
 import { useRouter } from "next/navigation";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
-import { Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
+import { Item, Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
+
+import MenuModal from "./components/MenuModal";
 
 export default function Menu({ params }: any) {
   // async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -22,9 +24,10 @@ export default function Menu({ params }: any) {
   //   console.log(data);
   //   // restaurants = data;
   // }
-
+  const [openModal, setOpenModal] = useState(false);
   const [restaurantData, setRestaurantData] = useState<Restaurant | null>(null);
   const [menuData, setMenuData] = useState<RestaurantMenu | null>(null);
+  const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
@@ -51,6 +54,13 @@ export default function Menu({ params }: any) {
   if (!restaurantData) {
     return <div>Loading...</div>;
   }
+
+  const handleScroll = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
@@ -126,7 +136,7 @@ export default function Menu({ params }: any) {
           </div>
         </div>
 
-        <div className="border-[#eee] border-2 py-6">
+        <div className="border-[#eee] border py-6 sticky top-[72px] bg-white">
           <div className="px-[64px] flex gap-4">
             {menuData?.categories.map((c, index) => (
               <div
@@ -135,6 +145,7 @@ export default function Menu({ params }: any) {
                     ? "bg-[#00ccbb] text-white px-4 rounded-full"
                     : undefined
                 }`}
+                onClick={() => handleScroll(c.name)}
               >
                 {c.name}
               </div>
@@ -146,14 +157,18 @@ export default function Menu({ params }: any) {
           <div className="flex gap-4 px-[64px]">
             <div className="flex flex-col flex-wrap gap-12 grow ">
               {menuData?.categories.map((c) => (
-                <div key={c.name}>
+                <div key={c.name} id={c.name} className="scroll-m-[200px]">
                   <div className="text-2xl">{c.name}</div>
                   <div className="pt-2 pb-4 font-light">{c.description}</div>
                   <div className="grid grid-cols-3 gap-4  ">
-                    {c.items.map((i) => (
+                    {c.items.map((i, index) => (
                       <div
-                        key={i.name}
+                        key={i.name + index}
                         className="flex justify-between  bg-white p-6 shadow-sm"
+                        onClick={() => {
+                          setSelectedItem(i);
+                          setOpenModal(true);
+                        }}
                       >
                         <div className="space-y-2 max-w-[150px]">
                           <div> {i.name}</div>
@@ -179,7 +194,7 @@ export default function Menu({ params }: any) {
               ))}
             </div>
 
-            <div className="flex flex-col self-start grow items-center p-12  bg-white shadow-sm">
+            <div className="flex flex-col self-start grow items-center p-12  bg-white shadow-sm  sticky top-[0px]">
               <ShoppingBasket color="#abadad" size={36} />
               <div className="font-normal text-sm text-[#abadad] mt-2">
                 Your basket is empty
@@ -194,6 +209,12 @@ export default function Menu({ params }: any) {
           </div>
         </div>
       </div>
+
+      <MenuModal
+        menuItem={selectedItem}
+        openModal={openModal}
+        setOpenModal={() => setOpenModal(false)}
+      ></MenuModal>
     </>
   );
 }
