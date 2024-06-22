@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import { Item, Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
 
 import MenuModal from "./components/MenuModal";
-import Header from "@/components/Header";
+import Header from "@/components/Headers";
 
 export default function Menu({ params }: any) {
   // async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {

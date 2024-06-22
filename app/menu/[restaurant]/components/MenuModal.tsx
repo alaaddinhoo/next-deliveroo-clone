@@ -1,4 +1,4 @@
-import Modal from "@/components/modal";
+import Modal from "@/components/Modals";
 import { Item } from "@/utils/typesFirebase";
 import Image from "next/image";
 

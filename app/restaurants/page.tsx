@@ -19,7 +19,7 @@ import {
 
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import Header from "@/components/Header";
+import Header from "@/components/Headers";
 import { searchRestaurants, SearchParams } from "@/utils/http";
 import { Restaurant } from "@/utils/typesFirebase";
 import { useEffect, useState } from "react";
