@@ -41,7 +41,8 @@ export async function searchRestaurants(options: SearchParams = {}) {
       //   "X-Algolia-Application-Id": ALGOLIA_APPLICATION_ID,
       // }),
       headers: new Headers({
-        "X-Algolia-API-Key": "3820ce633e4c4abb9400dfb74df646be",
+        // "X-Algolia-API-Key": "3820ce633e4c4abb9400dfb74df646be",
+        "X-Algolia-API-Key": "e25b5d1ac31fced6330bd820ebc97c0c",
         "X-Algolia-Application-Id": "VVWOVRO2RI",
       }),
     });

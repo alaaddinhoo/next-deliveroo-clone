@@ -8,7 +8,7 @@ import { HomeIcon, Loader2, MailSearch, User } from "lucide-react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { resendVerificationLink } from "@/utils/firebase/firebaseAdminAuth";
 
-const VerifyEmail = () => {
+export default function VerifyEmail() {
   const [user, loading] = useAuthState(auth);
   const [verificationError, setVerificationError] = useState<null | string>(
     null
@@ -134,6 +134,4 @@ const VerifyEmail = () => {
       </div>
     </Suspense>
   );
-};
-
-export default VerifyEmail;
+}
