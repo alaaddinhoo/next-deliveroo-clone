@@ -385,7 +385,7 @@ export default function Restaurants() {
                 </div>
               </div>
             ) : (
-              <RestaurantSkeleton />
+              <RestaurantSkeleton num={hitsPerPage} />
             )}
           </div>
 

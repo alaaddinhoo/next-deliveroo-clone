@@ -185,7 +185,7 @@ export default function Slider() {
           ></Image>
         </SplideSlide>
       </Splide>
-      <div className="absolute top-1/4 flex w-full justify-between text-[#00ccbb]">
+      <div className="absolute top-[35%] flex w-full justify-between text-[#00ccbb]">
         {currentSlide != 0 ? (
           <div className="p-3 bg-white rounded-full relative left-[-1.5em] shadow-md ">
             <ChevronLeft onClick={goToPrevSlide} size="24" />

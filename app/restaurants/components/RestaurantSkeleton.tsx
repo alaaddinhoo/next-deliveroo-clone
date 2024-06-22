@@ -1,10 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const RestaurantSkeleton = () => {
+const RestaurantSkeleton = ({ num }: { num: number }) => {
   return (
     <div className="w-full">
       <div className="grid grid-cols-6 gap-4 w-full justify-evenly ">
-        {Array.from({ length: 30 }).map((_, index) => (
+        {Array.from({ length: num }).map((_, index) => (
           <div className="flex flex-col space-y-4 p-2">
             <Skeleton className="h-[125px] rounded-none" />
             <div className="space-y-2">
