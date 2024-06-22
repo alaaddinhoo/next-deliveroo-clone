@@ -73,7 +73,7 @@ const Header = ({ searchPlaceholder, type }: Props) => {
 
         <div className="flex gap-2 px-4 py-2 border-[2px] border-[#eee] font-light">
           <User color="#00ccbb" />
-          <div>Account</div>
+          <div>Accounts</div>
         </div>
         <div className="flex gap-2 px-4 py-2 border-[2px] border-[#eee] font-light">
           <ShoppingBasket color="#00ccbb" />
