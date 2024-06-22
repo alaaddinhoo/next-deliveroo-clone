@@ -8,7 +8,7 @@ const nextConfig = {
     ],
   },
   reactStrictMode: false, // DISABLE IT
-  missingSuspenseWithCSRBailout: false,
+  experimental: { missingSuspenseWithCSRBailout: false },
 };
 
 export default nextConfig;
