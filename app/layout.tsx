@@ -18,10 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        {/* <AuthProvider>{children}</AuthProvider> */}
-        {children}
-        <div className="bg-gradient-to-r from-[#00ccbb] py-4 w-full flex justify-center text-white font-normal">
+      <body className="min-h-[100vh] flex flex-col ">
+        <div className="grow">{children}</div>
+        <div className="bg-gradient-to-r from-[#00ccbb] h-[10vh] w-full flex items-center justify-center text-white font-normal">
           <span>Made with&nbsp;</span>
           <span className="inline-block">
             <Heart className="fill-rose-400" color="rose-400" size={24} />

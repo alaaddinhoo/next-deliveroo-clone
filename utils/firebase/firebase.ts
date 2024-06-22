@@ -8,6 +8,8 @@ import {
   query,
   where,
   getDocs,
+  QuerySnapshot,
+  DocumentData,
 } from "firebase/firestore";
 import * as authErrors from "./authErorrs.json";
 import {
@@ -201,4 +203,25 @@ export const getMenuByRestaurantID = async (restaurantID: string) => {
 
   const menus = querySnapshot.docs.map((doc) => doc.data());
   return menus.length ? menus[0] : null; // Assuming there's only one document per restaurantID
+};
+
+export const getAllDocumentsFromCollection = async <T>(
+  collectionName: string
+): Promise<T[]> => {
+  try {
+    const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(
+      collection(db, collectionName)
+    );
+    const newData: T[] = querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+      } as T;
+    });
+    return newData;
+  } catch (error) {
+    console.error("Error fetching data from collection:", error);
+    throw error;
+  }
 };

@@ -30,7 +30,8 @@
     "middleware.ts",
     "hooks/useEmailVerification.js",
     "components/ProtectedRoute.tsx",
-    "components/ProtectedRouter.jsx"
+    "components/ProtectedRouter.jsx",
+    "utils/http.ts"
   ],
   "exclude": ["node_modules"]
 }
