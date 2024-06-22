@@ -32,7 +32,7 @@
     "middleware.ts",
     "hooks/useEmailVerification.js",
     "components/ProtectedRoute.tsx",
-    "components/ProtectedRouter.jsx"
-, "components/LeftSvgComponent.jsx"  ],
-  "exclude": ["node_modules"]
+    "components/ProtectedRouter.jsx",
+    "utils/http.ts"
+  ],"exclude": ["node_modules"]
 }

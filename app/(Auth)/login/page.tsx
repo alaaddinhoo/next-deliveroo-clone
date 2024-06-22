@@ -27,13 +27,13 @@ export default function Login() {
   //   router.push("/restaurants");
   // }
 
-  useEffect(() => {
-    console.log(user);
+  // useEffect(() => {
+  //   console.log(user);
 
-    if (user) {
-      router.push("/restaurants");
-    }
-  }, [user]);
+  //   if (user) {
+  //     router.push("/restaurants");
+  //   }
+  // }, [user]);
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);

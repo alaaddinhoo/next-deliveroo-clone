@@ -1,5 +1,6 @@
 export interface Restaurant {
   id: string;
+  objectID: string;
   name: string;
   coverImage: string;
   onlyOnDeliveroo: boolean;

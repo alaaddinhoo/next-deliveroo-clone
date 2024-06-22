@@ -164,9 +164,11 @@ export default function Slider({ data }: { data: Restaurant[] }) {
                   <Star className="fill-[#4d7c1b] text-[#4d7c1b]" size="14" />
                 </span>
                 {t?.rating ? (
-                  <p>{t?.rating + " Excellent (500+)"}</p>
+                  <p className="text-[#4d7c1b]">
+                    {t?.rating + " Excellent (500+)"}
+                  </p>
                 ) : (
-                  "New on Deliveroo"
+                  <p className="text-[#4d7c1b]">New on Deliveroo</p>
                 )}
                 <p className="line-clamp-1">• 0.3 km</p>
               </div>
