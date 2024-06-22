@@ -12,17 +12,17 @@ export async function getRestaurants() {
   return await response.json();
 }
 
-interface SearchParams {
+export interface SearchParams {
   query?: string;
   filters?: string;
-  hitsPerPage?: number;
-  page?: number;
+  perPage?: number;
+  pageIndex?: number;
 }
 
 export async function searchRestaurants(options: SearchParams = {}) {
-  const { query = "*", filters = "", hitsPerPage = 18, page = 0 } = options;
+  const { query = "*", filters = "", perPage = 20, pageIndex = 0 } = options;
 
-  const requestUrl = `https://VVWOVRO2RI-dsn.algolia.net/1/indexes/restaurants?query=${query}&hitsPerPage=${hitsPerPage}&page=${page}&attributesToRetrieve=name,rating,coverImage,onlyOnDeliveroo,deliveryFee,open&attributesToHighlight=%5B%5D&filters=${filters}`;
+  const requestUrl = `https://VVWOVRO2RI-dsn.algolia.net/1/indexes/restaurants?query=${query}&hitsPerPage=${perPage}&page=${pageIndex}&attributesToRetrieve=name,rating,coverImage,onlyOnDeliveroo,deliveryFee,open&attributesToHighlight=%5B%5D&filters=${filters}`;
   console.log(requestUrl);
 
   try {
