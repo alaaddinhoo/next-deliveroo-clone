@@ -22,8 +22,8 @@ export interface SearchParams {
 export async function searchRestaurants(options: SearchParams = {}) {
   const { query = "*", filters = "", perPage = 20, pageIndex = 0 } = options;
 
-  const ALGOLIA_API_KEY = process.env.ALGOLIA_API_KEY;
-  const ALGOLIA_APPLICATION_ID = process.env.ALGOLIA_APPLICATION_ID;
+  const ALGOLIA_API_KEY = process.env.NEXT_PUBLIC_ALGOLIA_API_KEY;
+  const ALGOLIA_APPLICATION_ID = process.env.NEXT_PUBLIC_ALGOLIA_APPLICATION_ID;
 
   if (!ALGOLIA_API_KEY || !ALGOLIA_APPLICATION_ID) {
     throw new Error(
@@ -40,11 +40,6 @@ export async function searchRestaurants(options: SearchParams = {}) {
         "X-Algolia-API-Key": ALGOLIA_API_KEY,
         "X-Algolia-Application-Id": ALGOLIA_APPLICATION_ID,
       }),
-      // headers: new Headers({
-      //   // "X-Algolia-API-Key": "3820ce633e4c4abb9400dfb74df646be",
-      //   "X-Algolia-API-Key": "e25b5d1ac31fced6330bd820ebc97c0c",
-      //   "X-Algolia-Application-Id": "VVWOVRO2RI",
-      // }),
     });
 
     if (!response.ok) {
