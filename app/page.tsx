@@ -3,6 +3,15 @@
 import { useEffect, useState } from "react";
 import { batchPostJsonDocuments } from "@/utils/firebase/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
+import brandImage from "@logo/logo.svg"
+import Image from "next/image";
+import { ChevronDown, ShoppingBasketIcon, User2 } from "lucide-react";
+import { AppleDownloadButton } from "@/components/apple-download-button";
+import { GoogleDownloadButton } from "@/components/google-download-button copy";
+import Link from "next/link";
+import { SvgComponent as LeftSvgComponent } from "@/components/LeftSvgComponent";
+import { SvgComponent as RightSvgComponent } from "@/components/RightSvgComponent";
+
 // const json = [
 //   {
 //     fields: {
@@ -807,12 +816,65 @@ export default function Home() {
 
   return (
     <div>
-      <button
+      {/* <button
         onClick={handlePostData}
         className="px-4 py-2 bg-blue-500 text-white rounded"
       >
         Post Sample Data to Firebase
-      </button>
+      </button> */}
+        <nav className="flex justify-between px-12 py-2 ">
+          <Image src={brandImage} alt="home page" className="size-1/12" />
+
+          <div className="flex gap-5 w-full justify-end">
+            <button className="bg-white rounded-lg border-2 p-2 self-center px-4 flex gap-2">
+              <ChevronDown className="text-brand self-center"/>
+              <span className="font-light self-center">Partner with us</span>
+            </button>
+            
+            <button className="bg-white rounded-lg border-2 p-2 self-center px-4 flex gap-2">
+              <ShoppingBasketIcon className="text-brand self-center"/>
+              <span className="font-light self-center">0 AED</span>
+            </button>
+            
+            <button className="bg-white rounded-lg border-2 p-2 self-center px-4 flex gap-2">
+              <User2 className="text-brand self-center"/>
+              <span className="font-light self-center">Account</span>
+            </button>
+          </div>
+        </nav>
+      
+        <div className=" h-[93vh] w-full flex justify-center bg-slate-400">
+            <div className="self-center">Under Contruction</div>
+        </div>
+
+        <div className="justify-center my-10 flex h-fit p-4">
+          <div className="flex">
+            <div className="w-[550px] h-full bg-white p-4  rounded-lg space-y-8">
+              <h1 className="font-bold text-6xl">Track orders to your door</h1>
+              <p className="text-md font-light">Get your favorite food delivered in a flash. You’ll see when your rider’s picked up your order, and be able to follow them along the way. You’ll get a notification when they’re nearby, too.</p>
+              <div className="flex gap-2">
+                <AppleDownloadButton />
+                <GoogleDownloadButton />
+              </div>
+            </div>
+
+            <div className="w-[750px] h-full rounded-md relative">
+              <Image fill src={"https://img2.storyblok.com/filters:format(webp)/f/62776/x/ca59b51c51/map-min.svg"} alt=""/>
+            </div>
+
+          </div>
+        </div>
+
+        <div className="w-full h-[350px] bg-sky-500 my-14 content-center font-medium space-y-8">
+          <div className="flex gap-5 justify-center">
+            <div className=""><LeftSvgComponent  /></div>
+            <h1 className="text-6xl text-white font-bold">Up to 25% off - Meal Deals</h1>
+            <div className=""><RightSvgComponent  /></div>
+          </div>
+          <p className="text-lg text-center text-white">Need a midweek pick-me-up, a break from cooking for the family or just fancy your favourite restaurant?</p>
+          <p className="text-sm text-center text-white">Service and delivery fees, Subject to availability. Participating Restaurants Only. <span className="underline" ><Link href="/legal">T&Cs apply.</Link></span></p>
+        </div>
+
     </div>
   );
 }

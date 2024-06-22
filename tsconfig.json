@@ -18,7 +18,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      // "@imgs/*": ["./images/*"],
+      "@logo/*": ["./images/logos/*"],
     }
   },
   "include": [
@@ -32,6 +34,5 @@
     "components/ProtectedRoute.tsx",
     "components/ProtectedRouter.jsx",
     "utils/http.ts"
-  ],
-  "exclude": ["node_modules"]
+  ],"exclude": ["node_modules"]
 }

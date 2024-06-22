@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      colors: {
+        brand: "#00ccbc"
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
