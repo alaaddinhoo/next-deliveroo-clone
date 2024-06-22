@@ -51,87 +51,81 @@ export default function VerifyEmail() {
   }, [user]);
 
   return (
-    <Suspense fallback="loading">
-      <div className="flex flex-col h-[100vh]">
-        <div className="h-[72px] px-[20vw] flex justify-between gap-6 items-center border-b border-[#eee] sticky top-0 bg-white z-[99]">
-          <Link href="/">
-            <Image
-              width="131"
-              height="122"
-              src="https://consumer-component-library.roocdn.com/30.2.0/static/images/logo-teal.svg"
-              alt="logo"
-            ></Image>
-          </Link>
+    <div className="flex flex-col h-[100vh]">
+      <div className="h-[72px] px-[20vw] flex justify-between gap-6 items-center border-b border-[#eee] sticky top-0 bg-white z-[99]">
+        <Link href="/">
+          <Image
+            width="131"
+            height="122"
+            src="https://consumer-component-library.roocdn.com/30.2.0/static/images/logo-teal.svg"
+            alt="logo"
+          ></Image>
+        </Link>
 
-          <div className="flex gap-2 font-light text-[16px]">
-            <div className="flex items-center gap-2 px-4 py-2 border-[2px] border-[#eee]">
-              <HomeIcon color="#00ccbb" size={16} />
-              <Link href="/login">Sign up or log in</Link>
-            </div>
-            <div className="flex items-center gap-2 px-4 py-2  border-[2px] border-[#eee]">
-              <User color="#00ccbb" size={20} />
-              <div>Account</div>
-            </div>
+        <div className="flex gap-2 font-light text-[16px]">
+          <div className="flex items-center gap-2 px-4 py-2 border-[2px] border-[#eee]">
+            <HomeIcon color="#00ccbb" size={16} />
+            <Link href="/login">Sign up or log in</Link>
           </div>
-        </div>
-
-        <div className="grow  space-y-4  w-[360px] content-center mx-auto">
-          <div className=" mb-8 flex flex-col gap-4 items-center text-center">
-            {userVerified && !verificationError && (
-              <div className="mb-8 flex flex-col gap-4 items-center text-center">
-                <MailSearch size={72} color="#00ccbb" />
-                <div className="text-3xl">Your account is verified</div>
-                <div className="text-[#a6b1b3] font-normal w-full">
-                  You can now proceed to login to your account.
-                </div>
-              </div>
-            )}
-
-            {!userVerified ||
-              (false && (
-                <div className="mb-8 flex flex-col gap-4 items-center text-center">
-                  {mode === "verifyEmail" && oobCode && !verificationError ? (
-                    <Loader2
-                      className="animate-spin"
-                      size={72}
-                      color="#00ccbb"
-                    />
-                  ) : (
-                    <MailSearch size={72} color="#00ccbb" />
-                  )}
-                  <div className="text-3xl">Verify your email</div>
-                  <div className="text-[#a6b1b3] font-normal">
-                    We have sent you an email, so check your inbox or junk
-                    folders to proceed.
-                  </div>
-                </div>
-              ))}
+          <div className="flex items-center gap-2 px-4 py-2  border-[2px] border-[#eee]">
+            <User color="#00ccbb" size={20} />
+            <div>Account</div>
           </div>
-
-          {verificationError && (
-            <div className="w-full p-4 mt-6 font-normal bg-rose-200 text-rose-700">
-              {verificationError}
-            </div>
-          )}
-
-          {userVerified && !verificationError ? (
-            <Link
-              href="/login"
-              className="flex grow justify-center text-[white] py-4 bg-[#00ccbb]"
-            >
-              Proceed to login
-            </Link>
-          ) : (
-            <button
-              disabled={!!((!mode || !oobCode || !email) && verificationError)}
-              className="w-full text-[white] py-4 bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
-              onClick={handleResendVerificationLink}
-            >
-              Resend Verification Link
-            </button>
-          )}
         </div>
       </div>
-    </Suspense>
+
+      <div className="grow  space-y-4  w-[360px] content-center mx-auto">
+        <div className=" mb-8 flex flex-col gap-4 items-center text-center">
+          {userVerified && !verificationError && (
+            <div className="mb-8 flex flex-col gap-4 items-center text-center">
+              <MailSearch size={72} color="#00ccbb" />
+              <div className="text-3xl">Your account is verified</div>
+              <div className="text-[#a6b1b3] font-normal w-full">
+                You can now proceed to login to your account.
+              </div>
+            </div>
+          )}
+
+          {!userVerified ||
+            (false && (
+              <div className="mb-8 flex flex-col gap-4 items-center text-center">
+                {mode === "verifyEmail" && oobCode && !verificationError ? (
+                  <Loader2 className="animate-spin" size={72} color="#00ccbb" />
+                ) : (
+                  <MailSearch size={72} color="#00ccbb" />
+                )}
+                <div className="text-3xl">Verify your email</div>
+                <div className="text-[#a6b1b3] font-normal">
+                  We have sent you an email, so check your inbox or junk folders
+                  to proceed.
+                </div>
+              </div>
+            ))}
+        </div>
+
+        {verificationError && (
+          <div className="w-full p-4 mt-6 font-normal bg-rose-200 text-rose-700">
+            {verificationError}
+          </div>
+        )}
+
+        {userVerified && !verificationError ? (
+          <Link
+            href="/login"
+            className="flex grow justify-center text-[white] py-4 bg-[#00ccbb]"
+          >
+            Proceed to login
+          </Link>
+        ) : (
+          <button
+            disabled={!!((!mode || !oobCode || !email) && verificationError)}
+            className="w-full text-[white] py-4 bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
+            onClick={handleResendVerificationLink}
+          >
+            Resend Verification Link
+          </button>
+        )}
+      </div>
+    </div>
   );
 }
