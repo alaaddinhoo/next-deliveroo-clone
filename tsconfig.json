@@ -18,7 +18,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      // "@imgs/*": ["./images/*"],
+      "@logo/*": ["./images/logos/*"],
     }
   },
   "include": [
@@ -31,6 +33,6 @@
     "hooks/useEmailVerification.js",
     "components/ProtectedRoute.tsx",
     "components/ProtectedRouter.jsx"
-  ],
+, "components/LeftSvgComponent.jsx"  ],
   "exclude": ["node_modules"]
 }

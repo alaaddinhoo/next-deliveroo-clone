@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-[#f1f0f0]">
         {/* <AuthProvider>{children}</AuthProvider> */}
         {children}
       </body>
