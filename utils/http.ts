@@ -31,7 +31,7 @@ export async function searchRestaurants(options: SearchParams = {}) {
     );
   }
 
-  const requestUrl = `https://VVWOVRO2RI-dsn.algolia.net/1/indexes/restaurants?query=${query}&hitsPerPage=${perPage}&page=${pageIndex}&attributesToRetrieve=name,rating,coverImage,onlyOnDeliveroo,deliveryFee,open&attributesToHighlight=%5B%5D&filters=${filters}`;
+  const requestUrl = `https://VVWOVRO2RI-dsn.algolia.net/1/indexes/restaurants?query=${query}&hitsPerPage=${perPage}&page=${pageIndex}&attributesToHighlight=%5B%5D&filters=${filters}`;
   console.log(requestUrl);
 
   try {

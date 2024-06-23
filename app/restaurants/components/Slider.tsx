@@ -147,7 +147,7 @@ export default function Slider() {
       >
         <SplideSlide className="relative w-[344px] h-[172px]">
           <Image
-            src="https://f.roocdn.com/images/onsite_messages/875085/onsite-message-image.jpg?width=344&height=172&auto=webp&format=jpg&fit=crop&v=6"
+            src="https://f.roocdn.com/images/onsite_messages/875085/onsite-message-image.jpg"
             fill
             alt="img"
           ></Image>
@@ -155,7 +155,7 @@ export default function Slider() {
 
         <SplideSlide className="relative w-[344px] h-[172px]">
           <Image
-            src="https://f.roocdn.com/images/onsite_messages/986711/onsite-message-image.jpg?width=344&height=172&auto=webp&format=jpg&fit=crop&v=1718876139"
+            src="https://f.roocdn.com/images/onsite_messages/986711/onsite-message-image.jpg"
             fill
             alt="img"
           ></Image>
@@ -163,7 +163,7 @@ export default function Slider() {
 
         <SplideSlide className="relative w-[344px] h-[172px]">
           <Image
-            src="https://f.roocdn.com/images/onsite_messages/987253/onsite-message-image.jpg?width=344&height=172&auto=webp&format=jpg&fit=crop&v=1718976808"
+            src="https://f.roocdn.com/images/onsite_messages/987253/onsite-message-image.jpg"
             fill
             alt="img"
           ></Image>
@@ -171,7 +171,7 @@ export default function Slider() {
 
         <SplideSlide className="relative w-[344px] h-[172px]">
           <Image
-            src="https://f.roocdn.com/images/onsite_messages/976107/onsite-message-image.jpg?width=344&height=172&auto=webp&format=jpg&fit=crop&v=1716790462"
+            src="https://f.roocdn.com/images/onsite_messages/976107/onsite-message-image.jpg"
             fill
             alt="img"
           ></Image>
@@ -179,7 +179,7 @@ export default function Slider() {
 
         <SplideSlide className="relative w-[344px] h-[172px]">
           <Image
-            src="https://f.roocdn.com/images/onsite_messages/987108/onsite-message-image.jpg?width=344&height=172&auto=webp&format=jpg&fit=crop&v=1718952314"
+            src="https://f.roocdn.com/images/onsite_messages/987108/onsite-message-image.jpg"
             fill
             alt="img"
           ></Image>

@@ -375,6 +375,49 @@ const json = [
   },
 ];
 
+const offersOptions = [
+  "Buy 1 get 1",
+  "Free delivery",
+  "Top daily deals",
+  "Grocery deals",
+];
+
+const dietaryOptions = [
+  "Gluten Free",
+  "Halal",
+  "Organic",
+  "Paleo",
+  "Vegan Friendly",
+];
+
+const cuisinesOptions = [
+  "American",
+  "Arabic",
+  "Asian",
+  "Breakfast",
+  "Cafe",
+  "Chinese",
+];
+
+function getRandomSelection(
+  options: string[],
+  min: number,
+  max: number
+): string[] {
+  const shuffled = options.sort(() => 0.5 - Math.random());
+  const count = Math.floor(Math.random() * (max - min + 1)) + min;
+  return shuffled.slice(0, count);
+}
+
+const updatedJson = json.map((restaurant) => ({
+  ...restaurant,
+  offers: getRandomSelection(offersOptions, 1, 3),
+  dietary: getRandomSelection(dietaryOptions, 1, 3),
+  cuisines: getRandomSelection(cuisinesOptions, 1, 3),
+}));
+
+console.log(updatedJson);
+
 // const json = [
 //   {
 //     restaurantID: "QbyVPK9ph0e2NYkilO10",
@@ -807,7 +850,7 @@ const json = [
 export default function Home() {
   const handlePostData = async () => {
     try {
-      await batchPostJsonDocuments(json, "restaurants");
+      await batchPostJsonDocuments(updatedJson, "restaurants");
       console.log("Posted successfully");
     } catch (error) {
       console.error("Error posting data:", error);
@@ -816,12 +859,12 @@ export default function Home() {
 
   return (
     <div>
-      {/* <button
+      <button
         onClick={handlePostData}
         className="px-4 py-2 bg-blue-500 text-white rounded"
       >
         Post Sample Data to Firebase
-      </button> */}
+      </button>
       <nav className="flex justify-between px-12 py-2 ">
         <Image src={brandImage} alt="home page" className="size-1/12" />
 
