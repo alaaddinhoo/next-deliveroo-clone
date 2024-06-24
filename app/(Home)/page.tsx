@@ -19,6 +19,15 @@ import { SvgComponent as LeftSvgComponent } from "./components/LeftSvgComponent"
 import { SvgComponent as RightSvgComponent } from "./components/RightSvgComponent";
 import { Footer } from "@/components/Footer";
 import { BrandsSplide } from "./components/BrandsSplide";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 // const json = [
 //   {
@@ -875,14 +884,27 @@ export default function Home() {
         Post Sample Data to Firebase
       </button> */}
 
-        <div className="h-[65vh] bg-[#f0f0f0] relative">
-          <div className="relative z-[9999] flex justify-between items-center px-12 py-4">
+        <div className="h-[70vh] bg-[#f0f0f0] relative">
+          <div className="relative bg-white z-[100] flex justify-between items-center px-[64px] py-4">
             <Image width={121} height={32} src={brandImage} alt="home page" />
 
             <div className="flex items-start md:hidden">
-              <button className="p-2 bg-white border-[2px] border-[#eee]">
-                <Menu className="text-primary" size={32} />
-              </button>
+              <Sheet>
+                <SheetTrigger>
+                  <button className="p-2 bg-white">
+                    <Menu className="text-primary" size={32} />
+                  </button>
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Are you absolutely sure?</SheetTitle>
+                    <SheetDescription>
+                      This action cannot be undone. This will permanently delete
+                      your account and remove your data from our servers.
+                    </SheetDescription>
+                  </SheetHeader>
+                </SheetContent>
+              </Sheet>
             </div>
 
             <div className="hidden md:flex gap-5 items-center">
@@ -906,7 +928,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="max-w-[600px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-8 z-[99]">
+          <div className="w-[90vw] sm:max-w-[600px] sm:w-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-8 z-[99]">
             <div className="text-3xl sm:text-4xl md:text-5xl text-center">
               Restaurant food, takeaway and groceries. Delivered.
             </div>
@@ -919,7 +941,7 @@ export default function Home() {
                   placeholder="Enter your full address"
                   className="appearance-none font-normal w-full h-full focus:outline-none"
                 />
-                <button className="grow px-8 py-4 bg-primary rounded-full text-white">
+                <button className="px-4 text-sm grow sm:px-8 sm:text-base py-4 bg-primary rounded-full text-white">
                   Search
                 </button>
               </div>
@@ -932,16 +954,16 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="absolute w-full h-full top-0 left-[30%] md:right-[30%] z-30">
+          <div className="absolute w-full h-full top-0 md:right-[30%] z-30">
             <Image
               fill
               alt="img"
               src="https://a.storyblok.com/f/62776/x/14b959f89c/rooute.svg"
-              className="relative"
+              className="relative max-md:object-cover"
             ></Image>
           </div>
 
-          <div className="hidden sm:block absolute h-full top-[1/4] right-[65%] z-40">
+          <div className="hidden sm:block absolute h-full top-[20%] right-[65%] z-40">
             <img
               alt="img"
               src="https://a.storyblok.com/f/62776/499x445/9f9ece842f/105_deliveroo_global_grocery_bag_side_v2_rt_lr-1.png"
@@ -949,7 +971,7 @@ export default function Home() {
             ></img>
           </div>
 
-          <div className="hidden sm:block absolute h-full top-[1/4] left-[60%] z-40">
+          <div className="hidden sm:block absolute h-full top-[20%] left-[60%] z-40">
             <img
               alt="img"
               src="https://a.storyblok.com/f/62776/878x461/6e37c718ba/60_deliveroo_beefburger_s_hr-1.png"

@@ -49,6 +49,23 @@ export const BrandsSplide = () => {
       rewind: false,
       speed: 0.2,
     },
+    breakpoints: {
+      1536: {
+        perPage: 13,
+      },
+      1280: {
+        perPage: 10,
+      },
+      1024: {
+        perPage: 7,
+      },
+      768: {
+        perPage: 5,
+      },
+      640: {
+        perPage: 4,
+      },
+    },
   };
 
   const splideOptions2 = {
@@ -64,6 +81,23 @@ export const BrandsSplide = () => {
       pauseOnFocus: false,
       rewind: false,
       speed: 0.2,
+    },
+    breakpoints: {
+      1536: {
+        perPage: 13,
+      },
+      1280: {
+        perPage: 10,
+      },
+      1024: {
+        perPage: 7,
+      },
+      768: {
+        perPage: 5,
+      },
+      640: {
+        perPage: 4,
+      },
     },
   };
 
