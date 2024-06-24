@@ -22,7 +22,8 @@ import { useEffect, useState } from "react";
 import { Item, Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
 
 import MenuModal from "./components/MenuModal";
-import Header from "@/components/Headers";
+import Header from "./components/Header";
+import { MenuSkeleton } from "./components/MenuSkeleton";
 
 export default function Menu({ params }: any) {
   // async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -54,14 +55,13 @@ export default function Menu({ params }: any) {
         console.error("Error fetching menu:", error);
       }
     };
-
     fetchRestaurantData();
     fetchRestaurantMenuData();
     setLoadingData(false);
   }, []);
 
-  if (!restaurantData) {
-    return <div>Loading...</div>;
+  if (!restaurantData || !menuData) {
+    return <MenuSkeleton />;
   }
 
   const handleScroll = (id: string) => {
@@ -74,8 +74,10 @@ export default function Menu({ params }: any) {
   return (
     <div>
       <Header
-        searchPlaceholder={"Search for " + restaurantData.name + " items"}
-        type="menu"
+        restaurantName={restaurantData.name}
+        restaurantMenu={menuData}
+        setOpenModal={setOpenModal}
+        setSelectedItem={setSelectedItem}
       />
 
       {/* *********** content *********** */}
@@ -100,7 +102,7 @@ export default function Menu({ params }: any) {
 
             <div className="grow space-y-3 font-normal">
               <div className="text-4xl font-semibold">
-                {restaurantData.name}
+                {restaurantData?.name}
               </div>
               <div>20 - 30 min · Burgers · American</div>
               <div className="flex gap-2 items-center text-slate-600 text-md">

@@ -135,27 +135,29 @@ export default function Sidebar({ setFilterString, filterString }: Props) {
               <p className="text-[#2e3333] text-[14px]">Sort</p>
             </AccordionTrigger>
             <AccordionContent>
-              <RadioGroup defaultValue="distance" className="pt-4 pl-2">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="distance" id="distance" />
-                  <Label htmlFor="distance">Distance</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem
-                    value="quickestDelivery"
-                    id="quickestDelivery"
-                  />
-                  <Label htmlFor="quickestDelivery">Quickest delivery</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="recommended" id="recommended" />
-                  <Label htmlFor="recommended">Recommended</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="topRated" id="topRated" />
-                  <Label htmlFor="topRated">Top-rated</Label>
-                </div>
-              </RadioGroup>
+              <form>
+                <RadioGroup defaultValue="distance" className="pt-4 pl-2">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="distance" id="distance" />
+                    <Label htmlFor="distance">Distance</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      value="quickestDelivery"
+                      id="quickestDelivery"
+                    />
+                    <Label htmlFor="quickestDelivery">Quickest delivery</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="recommended" id="recommended" />
+                    <Label htmlFor="recommended">Recommended</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="topRated" id="topRated" />
+                    <Label htmlFor="topRated">Top-rated</Label>
+                  </div>
+                </RadioGroup>
+              </form>
             </AccordionContent>
           </AccordionItem>
         </Accordion>

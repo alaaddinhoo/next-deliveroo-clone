@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import Header from "@/components/Headers";
+import Header from "./components/Header";
 import { searchRestaurants, SearchParams } from "@/utils/http";
 import { Restaurant } from "@/utils/typesFirebase";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
@@ -106,10 +106,8 @@ export default function Restaurants() {
 
   return (
     <div className="">
-      <Header
-        searchPlaceholder="Restaurants, groceries, dishes"
-        type="restaurants"
-      />
+      <Header />
+
       <div className="flex gap-4 px-[64px] my-8 ">
         {/* ////////////////// sidebar ////////////////// */}
         <Sidebar
