@@ -5,6 +5,8 @@ const nextConfig = {
       "rs-menus-api.roocdn.com",
       "co-restaurants.roocdn.com",
       "f.roocdn.com",
+      "a.storyblok.com",
+      "img2.storyblok.com",
     ],
   },
   reactStrictMode: false, // DISABLE IT

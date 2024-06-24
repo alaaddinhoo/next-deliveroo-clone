@@ -5,12 +5,19 @@ import { batchPostJsonDocuments } from "@/utils/firebase/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import brandImage from "@logo/logo.svg";
 import Image from "next/image";
-import { ChevronDown, ShoppingBasketIcon, User2 } from "lucide-react";
+import {
+  ChevronDown,
+  LocateIcon,
+  ShoppingBasketIcon,
+  User2,
+} from "lucide-react";
 import { AppleDownloadButton } from "@/app/(Home)/components/AppleDownloadButton";
 import { GoogleDownloadButton } from "@/app/(Home)/components/GoogleDownloadButton";
 import Link from "next/link";
 import { SvgComponent as LeftSvgComponent } from "./components/LeftSvgComponent";
 import { SvgComponent as RightSvgComponent } from "./components/RightSvgComponent";
+import { Footer } from "@/components/Footer";
+import { BrandsSplide } from "./components/BrandsSplide";
 
 // const json = [
 //   {
@@ -859,40 +866,97 @@ export default function Home() {
 
   return (
     <div>
-      <button
+      <div className="flex flex-col space-y-24">
+        {/* <button
         onClick={handlePostData}
         className="px-4 py-2 bg-blue-500 text-white rounded"
       >
         Post Sample Data to Firebase
-      </button>
-      <nav className="flex justify-between px-12 py-2 ">
-        <Image src={brandImage} alt="home page" className="size-1/12" />
+      </button> */}
 
-        <div className="flex gap-5 w-full justify-end">
-          <button className="bg-white rounded-lg border-2 p-2 self-center px-4 flex gap-2">
-            <ChevronDown className="text-brand self-center" />
-            <span className="font-light self-center">Partner with us</span>
-          </button>
+        <div className="h-[65vh] bg-[#f0f0f0] relative">
+          <div className="flex justify-between px-12 py-4">
+            <Image width={121} height={32} src={brandImage} alt="home page" />
 
-          <button className="bg-white rounded-lg border-2 p-2 self-center px-4 flex gap-2">
-            <ShoppingBasketIcon className="text-brand self-center" />
-            <span className="font-light self-center">0 AED</span>
-          </button>
+            <div className="flex gap-5 items-center">
+              {/* <button className="flex items-center p-2 gap-2 bg-white border-[2px] border-[#eee] font-light">
+              <ChevronDown className="text-primary" />
+              <div>Partner with us</div>
+            </button> */}
 
-          <button className="bg-white rounded-lg border-2 p-2 self-center px-4 flex gap-2">
-            <User2 className="text-brand self-center" />
-            <span className="font-light self-center">Account</span>
-          </button>
+              <Link
+                href="/login"
+                className="flex items-center gap-2 p-2 bg-white border-[2px] border-[#eee] font-light"
+              >
+                <User2 className="text-primary" />
+                <div>Sign Up or Log in</div>
+              </Link>
+
+              <button className="flex items-center gap-2 p-2 bg-white border-[2px] border-[#eee] font-light">
+                <ShoppingBasketIcon className="text-primary" />
+                <div>0 AED</div>
+              </button>
+            </div>
+          </div>
+
+          <div className="max-w-[600px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-8 z-[99]">
+            <div className="text-5xl text-center">
+              Restaurant food, takeaway and groceries. Delivered.
+            </div>
+            <div className="bg-white p-8 space-y-6 font-normal rounded-lg">
+              <div>Enter an address to see what we deliver</div>
+              <div className="flex items-center gap-4 border border-slate-300 rounded-full w-full py-1 px-1">
+                <LocateIcon className="text-primary ml-4" size={32} />
+                <input
+                  name="search"
+                  placeholder="Enter your full address"
+                  className="appearance-none font-normal w-full h-full focus:outline-none"
+                />
+                <button className="grow px-8 py-4 bg-primary rounded-full text-white">
+                  Search
+                </button>
+              </div>
+              <div className="text-sm">
+                <Link href="/login" className="text-primary underline">
+                  Log in
+                </Link>
+                &nbsp;for your recent addresses.
+              </div>
+            </div>
+          </div>
+
+          <div className="absolute w-full h-full top-0 right-[30%] z-30">
+            <Image
+              fill
+              alt="img"
+              src="https://a.storyblok.com/f/62776/x/14b959f89c/rooute.svg"
+              className="relative"
+            ></Image>
+          </div>
+
+          <div className="absolute h-full top-[1/4] right-[65%] z-40">
+            <img
+              alt="img"
+              src="https://a.storyblok.com/f/62776/499x445/9f9ece842f/105_deliveroo_global_grocery_bag_side_v2_rt_lr-1.png"
+              className="relative"
+            ></img>
+          </div>
+
+          <div className="absolute h-full top-[1/4] left-[60%] z-40">
+            <img
+              alt="img"
+              src="https://a.storyblok.com/f/62776/878x461/6e37c718ba/60_deliveroo_beefburger_s_hr-1.png"
+              className="relative"
+            ></img>
+          </div>
         </div>
-      </nav>
 
-      <div className=" h-[93vh] w-full flex justify-center bg-slate-400">
-        <div className="self-center">Under Contruction</div>
-      </div>
+        <BrandsSplide />
 
-      <div className="justify-center my-10 flex h-fit p-4">
-        <div className="flex">
-          <div className="w-[550px] h-full bg-white p-4  rounded-lg space-y-8">
+        <div className="mb-24"></div>
+
+        {/* <div className="mx-auto drop-shadow-md rounded-lg bg-white flex items-center justify-center">
+          <div className="w-[550px] h-full px-12 space-y-8">
             <h1 className="font-bold text-6xl">Track orders to your door</h1>
             <p className="text-md font-light">
               Get your favorite food delivered in a flash. You’ll see when your
@@ -905,42 +969,46 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-[750px] h-full rounded-md relative">
-            <Image
-              fill
+          <div className="relative top-0 w-[750px]">
+            <img
+              width={750}
               src={
                 "https://img2.storyblok.com/filters:format(webp)/f/62776/x/ca59b51c51/map-min.svg"
               }
-              alt=""
+              className=""
+            />
+            <img
+              src={
+                "https://img2.storyblok.com/filters:format(webp)/f/62776/723x236/75533cf121/notification.png"
+              }
+              className="absolute z-50"
             />
           </div>
-        </div>
-      </div>
+        </div> */}
 
-      <div className="w-full h-[350px] bg-sky-500 my-14 content-center font-medium space-y-8">
-        <div className="flex gap-5 justify-center">
-          <div className="">
+        {/* <div className="w-full h-[350px] bg-sky-500 mt-14 content-center font-medium space-y-8">
+          <div className="flex gap-5 justify-center">
             <LeftSvgComponent />
-          </div>
-          <h1 className="text-6xl text-white font-bold">
-            Up to 25% off - Meal Deals
-          </h1>
-          <div className="">
+            <h1 className="text-6xl text-white font-bold">
+              Up to 25% off - Meal Deals
+            </h1>
             <RightSvgComponent />
           </div>
-        </div>
-        <p className="text-lg text-center text-white">
-          Need a midweek pick-me-up, a break from cooking for the family or just
-          fancy your favourite restaurant?
-        </p>
-        <p className="text-sm text-center text-white">
-          Service and delivery fees, Subject to availability. Participating
-          Restaurants Only.{" "}
-          <span className="underline">
-            <Link href="/legal">T&Cs apply.</Link>
-          </span>
-        </p>
+          <p className="text-lg text-center text-white">
+            Need a midweek pick-me-up, a break from cooking for the family or
+            just fancy your favourite restaurant?
+          </p>
+          <p className="text-sm text-center text-white">
+            Service and delivery fees, Subject to availability. Participating
+            Restaurants Only.{" "}
+            <span className="underline">
+              <Link href="/legal">T&Cs apply.</Link>
+            </span>
+          </p>
+        </div> */}
       </div>
+
+      {/* <Footer /> */}
     </div>
   );
 }
