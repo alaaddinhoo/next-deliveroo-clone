@@ -8,6 +8,7 @@ import Image from "next/image";
 import {
   ChevronDown,
   LocateIcon,
+  Menu,
   ShoppingBasketIcon,
   User2,
 } from "lucide-react";
@@ -875,10 +876,16 @@ export default function Home() {
       </button> */}
 
         <div className="h-[65vh] bg-[#f0f0f0] relative">
-          <div className="flex justify-between px-12 py-4">
+          <div className="relative z-[9999] flex justify-between items-center px-12 py-4">
             <Image width={121} height={32} src={brandImage} alt="home page" />
 
-            <div className="flex gap-5 items-center">
+            <div className="flex items-start md:hidden">
+              <button className="p-2 bg-white border-[2px] border-[#eee]">
+                <Menu className="text-primary" size={32} />
+              </button>
+            </div>
+
+            <div className="hidden md:flex gap-5 items-center">
               {/* <button className="flex items-center p-2 gap-2 bg-white border-[2px] border-[#eee] font-light">
               <ChevronDown className="text-primary" />
               <div>Partner with us</div>
@@ -900,7 +907,7 @@ export default function Home() {
           </div>
 
           <div className="max-w-[600px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-8 z-[99]">
-            <div className="text-5xl text-center">
+            <div className="text-3xl sm:text-4xl md:text-5xl text-center">
               Restaurant food, takeaway and groceries. Delivered.
             </div>
             <div className="bg-white p-8 space-y-6 font-normal rounded-lg">
@@ -925,7 +932,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="absolute w-full h-full top-0 right-[30%] z-30">
+          <div className="absolute w-full h-full top-0 left-[30%] md:right-[30%] z-30">
             <Image
               fill
               alt="img"
@@ -934,7 +941,7 @@ export default function Home() {
             ></Image>
           </div>
 
-          <div className="absolute h-full top-[1/4] right-[65%] z-40">
+          <div className="hidden sm:block absolute h-full top-[1/4] right-[65%] z-40">
             <img
               alt="img"
               src="https://a.storyblok.com/f/62776/499x445/9f9ece842f/105_deliveroo_global_grocery_bag_side_v2_rt_lr-1.png"
@@ -942,7 +949,7 @@ export default function Home() {
             ></img>
           </div>
 
-          <div className="absolute h-full top-[1/4] left-[60%] z-40">
+          <div className="hidden sm:block absolute h-full top-[1/4] left-[60%] z-40">
             <img
               alt="img"
               src="https://a.storyblok.com/f/62776/878x461/6e37c718ba/60_deliveroo_beefburger_s_hr-1.png"
