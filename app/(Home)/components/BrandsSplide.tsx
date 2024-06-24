@@ -22,20 +22,6 @@ export const BrandsSplide = () => {
     "https://img2.storyblok.com/filters:format(webp)/f/62776/254x288/a129553ef2/hop3.jpg",
   ];
 
-  // State for shuffled images
-  const [shuffledImages, setShuffledImages] = useState([]);
-
-  // Shuffle images function
-  const shuffleImages = () => {
-    const shuffled = [...images].sort(() => Math.random() - 0.5) as [];
-    setShuffledImages(shuffled);
-  };
-
-  // Initial shuffle on component mount
-  useEffect(() => {
-    shuffleImages();
-  }, []); // Empty dependency array ensures this effect runs only once on mount
-
   const splideOptions1 = {
     type: "loop",
     gap: "10px",
@@ -114,14 +100,17 @@ export const BrandsSplide = () => {
         ))}
       </Splide>
       <Splide options={splideOptions2} extensions={{ AutoScroll }}>
-        {shuffledImages.map((i, index) => (
-          <SplideSlide key={index} className="max-h-[90px]">
-            <img
-              src={i}
-              className="w-full h-full object-contain rounded-lg"
-            ></img>
-          </SplideSlide>
-        ))}
+        {images
+          .slice()
+          .reverse()
+          .map((i, index) => (
+            <SplideSlide key={index} className="max-h-[90px]">
+              <img
+                src={i}
+                className="w-full h-full object-contain rounded-lg"
+              ></img>
+            </SplideSlide>
+          ))}
       </Splide>
     </div>
   );

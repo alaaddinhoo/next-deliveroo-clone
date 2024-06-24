@@ -884,8 +884,8 @@ export default function Home() {
         Post Sample Data to Firebase
       </button> */}
 
-        <div className="h-[70vh] bg-[#f0f0f0] relative">
-          <div className="relative bg-white z-[100] flex justify-between items-center px-[64px] py-4">
+        <div className="h-[75vh] bg-[#f0f0f0] relative">
+          <div className="relative bg-white z-[100] flex justify-between items-center px-12 md:px-[64px] py-4">
             <Image width={121} height={32} src={brandImage} alt="home page" />
 
             <div className="flex items-start md:hidden">
