@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Head from "next/head";
+
 import { Heart } from "lucide-react";
 import Link from "next/link";
+
 // import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
@@ -19,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-[100vh] flex flex-col ">
-        <div className="md:hidden bg-primary w-full h-full">
-          Only desktop version available right now
+        <div className="md:hidden bg-primary w-screen h-screen text-white text-center grid place-content-center text-3xl ">
+          <div className="max-w-[60vw]">
+            Only desktop version available right now.
+          </div>
         </div>
 
         <div className="hidden md:block">

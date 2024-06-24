@@ -104,10 +104,10 @@ export default function Login() {
 
       {!channel && (
         <div className="grow space-y-4  w-[360px] content-center mx-auto">
-          <div>{loading && "loading..."}</div>
-          <div>
+          {/* <div>{loading && "loading..."}</div> */}
+          {/* <div>
             {auth.currentUser ? auth.currentUser.email : "not signed in"}
-          </div>
+          </div> */}
           <div className="text-xl mb-8">Login to your account</div>
 
           <button

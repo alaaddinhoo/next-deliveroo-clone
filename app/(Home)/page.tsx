@@ -28,6 +28,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 // const json = [
 //   {
@@ -865,6 +866,8 @@ console.log(updatedJson);
 // ];
 
 export default function Home() {
+  const router = useRouter();
+
   const handlePostData = async () => {
     try {
       await batchPostJsonDocuments(updatedJson, "restaurants");
@@ -885,7 +888,7 @@ export default function Home() {
       </button> */}
 
         <div className="h-[75vh] bg-[#f0f0f0] relative">
-          <div className="relative bg-white z-[100] flex justify-between items-center px-12 md:px-[64px] py-4">
+          <div className="relative z-[100] flex justify-between items-center px-12 md:px-[64px] py-4">
             <Image width={121} height={32} src={brandImage} alt="home page" />
 
             <div className="flex items-start md:hidden">
@@ -928,23 +931,31 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="w-[90vw] sm:max-w-[600px] sm:w-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-8 z-[99]">
+          <div className="w-[90vw] sm:max-w-[600px] sm:w-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 space-y-10 z-[99]">
             <div className="text-3xl sm:text-4xl md:text-5xl text-center">
               Restaurant food, takeaway and groceries. Delivered.
             </div>
             <div className="bg-white p-8 space-y-6 font-normal rounded-lg">
               <div>Enter an address to see what we deliver</div>
-              <div className="flex items-center gap-4 border border-slate-300 rounded-full w-full py-1 px-1">
-                <LocateIcon className="text-primary ml-4" size={32} />
-                <input
-                  name="search"
-                  placeholder="Enter your full address"
-                  className="appearance-none font-normal w-full h-full focus:outline-none"
-                />
-                <button className="px-4 text-sm grow sm:px-8 sm:text-base py-4 bg-primary rounded-full text-white">
-                  Search
-                </button>
-              </div>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  router.push("/restaurants");
+                }}
+              >
+                <div className="flex items-center gap-4 border border-slate-300 rounded-full w-full py-1 px-1">
+                  <LocateIcon className="text-primary ml-4" size={32} />
+                  <input
+                    name="search"
+                    placeholder="Enter your full address"
+                    className="appearance-none font-normal w-full h-full focus:outline-none"
+                  />
+                  <button className="px-4 text-sm grow sm:px-8 sm:text-base py-4 bg-primary rounded-full text-white">
+                    Search
+                  </button>
+                </div>
+              </form>
+
               <div className="text-sm">
                 <Link href="/login" className="text-primary underline">
                   Log in
@@ -954,12 +965,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="absolute w-full h-full top-0 md:right-[30%] z-30">
+          <div className="absolute w-full h-full top-0 xl:right-[30%] z-30">
             <Image
               fill
               alt="img"
               src="https://a.storyblok.com/f/62776/x/14b959f89c/rooute.svg"
-              className="relative max-md:object-cover"
+              className="relative max-xl:object-cover"
             ></Image>
           </div>
 
