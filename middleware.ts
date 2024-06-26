@@ -5,7 +5,6 @@ import {
   redirectToLogin,
 } from "next-firebase-auth-edge";
 import { clientConfig, serverConfig } from "./utils/firebase/config";
-import { resendVerificationLink } from "./utils/firebase/firebaseAdminAuth";
 
 const PUBLIC_PATHS = ["/register", "/login", "/verifyAccount"];
 

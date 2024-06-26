@@ -38,8 +38,9 @@ export const emailSignUp = async (email: string, password: string) => {
     await sendVerificationEmail(email, customVerificationLink);
 
     // Serialize the user credential to ensure it is a plain object
-    const serializedUserCredential = JSON.parse(JSON.stringify(userCredential));
-
+    const serializedUserCredential = JSON.parse(
+      JSON.stringify(userCredential.user)
+    );
     return serializedUserCredential;
   } catch (error: any) {
     // Handle different error codes from Firebase Auth

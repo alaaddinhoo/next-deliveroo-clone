@@ -4,8 +4,6 @@ import NextTopLoader from "nextjs-toploader";
 import { Heart } from "lucide-react";
 import Link from "next/link";
 
-// import { AuthProvider } from "@/context/AuthContext";
-
 export const metadata: Metadata = {
   title: "Deliveroo Clone",
   description:

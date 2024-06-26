@@ -93,17 +93,6 @@ export default function Restaurants() {
     setPage(0); // Reset page to 0 whenever hitsPerPage changes
   };
 
-  // useEffect(() => {
-  //   console.log(user);
-  //   console.log(loading);
-
-  //   if (user == null) {
-  //     router.push("/login");
-  //   } else if (!user?.emailVerified) {
-  //     router.push("/verifyAccount");
-  //   }
-  // }, [user, loading]);
-
   return (
     <div className="">
       <Header />

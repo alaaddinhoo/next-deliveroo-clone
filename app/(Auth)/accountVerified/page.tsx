@@ -12,6 +12,7 @@ export default function AccountVerified() {
   const [verificationError, setVerificationError] = useState<null | string>(
     null
   );
+  const [userVerified, setUserVerified] = useState<boolean>(false);
   const searchParams = useSearchParams();
   const mode = searchParams.get("mode");
   const oobCode = searchParams.get("oobCode");
@@ -22,6 +23,7 @@ export default function AccountVerified() {
         try {
           await verifyUser(oobCode);
           console.log(user);
+          setUserVerified(true);
         } catch (error: any) {
           setVerificationError(error.message);
           console.error("Error verifying account: ", error.code);
@@ -57,7 +59,7 @@ export default function AccountVerified() {
       </div>
 
       <div className="grow  space-y-4  w-[360px] content-center mx-auto">
-        {user?.emailVerified && !verificationError && (
+        {userVerified && !verificationError && (
           <div className="mb-8 flex flex-col gap-4 items-center text-center">
             <MailSearch size={72} color="#00ccbb" />
             <div className="text-3xl">Your account is verified</div>
@@ -67,7 +69,7 @@ export default function AccountVerified() {
           </div>
         )}
 
-        {!user?.emailVerified && !verificationError && (
+        {!userVerified && !verificationError && (
           <div className="mb-8 flex flex-col gap-4 items-center text-center">
             <Loader2 className="animate-spin" size={72} color="#00ccbb" />
             <div className="text-3xl">Verifying your email</div>

@@ -44,8 +44,14 @@ const Register = () => {
     try {
       const result = await emailSignUp(data.email, data.password);
       console.log(result);
+      const idToken = await result.stsTokenManager.accessToken;
+      await fetch("/api/login", {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
       if (result) {
-        router.push(`/verifyAccount?email=${result.user.email}`);
+        router.push("/verifyAccount");
       }
     } catch (error: any) {
       console.error("Error signing up: ", error);
