@@ -60,6 +60,10 @@ export async function middleware(request: NextRequest) {
     handleInvalidToken: async (reason) => {
       console.info("Missing or malformed credentials", { reason });
 
+      if (request.nextUrl.pathname == "/") {
+        return NextResponse.next();
+      }
+
       return redirectToLogin(request, {
         path: "/login",
         publicPaths: PUBLIC_PATHS,
