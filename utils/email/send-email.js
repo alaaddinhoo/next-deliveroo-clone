@@ -8,7 +8,7 @@ export const sendVerificationEmail = async (email, verificationLink) => {
   await resend.emails.send({
     from: "onboarding@resend.dev", // update this
     to: "alaaeldin.92@outlook.com",
-    // to: email,
+    // to: email,  // use this
     subject: "Verify Your Email Address",
     react: <Email url={verificationLink} />,
   });

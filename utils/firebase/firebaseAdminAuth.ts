@@ -8,6 +8,11 @@ import * as authErrors from "./authErorrs.json";
 /* we need this file for generateEmailVerificationLink function */
 // https://firebase.google.com/docs/auth/admin/email-action-links
 
+const isProduction = process.env.NODE_ENV === "production";
+const baseURL = isProduction
+  ? process.env.BASE_URL_PRODUCTION
+  : process.env.BASE_URL_DEVELOPMENT;
+
 // Email Sign Up
 export const emailSignUp = async (email: string, password: string) => {
   try {
@@ -18,7 +23,7 @@ export const emailSignUp = async (email: string, password: string) => {
     );
 
     const actionCodeSettings = {
-      url: "http://localhost:3000/verify-email", // Customize this URL
+      url: `${baseURL}/verify-email`, // Customize this URL
       handleCodeInApp: true, // This must be true
     };
 
@@ -32,7 +37,7 @@ export const emailSignUp = async (email: string, password: string) => {
     const url = new URL(verificationLink);
     const mode = url.searchParams.get("mode");
     const oobCode = url.searchParams.get("oobCode");
-    const customVerificationLink = `http://localhost:3000/accountVerified?mode=${mode}&oobCode=${oobCode}`;
+    const customVerificationLink = `${baseURL}/accountVerified?mode=${mode}&oobCode=${oobCode}`;
 
     // Send the custom verification email
     await sendVerificationEmail(email, customVerificationLink);
@@ -61,7 +66,7 @@ export const emailSignUp = async (email: string, password: string) => {
 export const resendVerificationLink = async (email: string) => {
   try {
     const actionCodeSettings = {
-      url: "http://localhost:3000/verify-email", // Customize this URL
+      url: `${baseURL}/verify-email`, // Customize this URL
       handleCodeInApp: true, // This must be true
     };
 
@@ -75,7 +80,7 @@ export const resendVerificationLink = async (email: string) => {
     const url = new URL(verificationLink);
     const mode = url.searchParams.get("mode");
     const oobCode = url.searchParams.get("oobCode");
-    const customVerificationLink = `http://localhost:3000/accountVerified?mode=${mode}&oobCode=${oobCode}`;
+    const customVerificationLink = `${baseURL}/accountVerified?mode=${mode}&oobCode=${oobCode}`;
 
     // Send the custom verification email
     await sendVerificationEmail(email, customVerificationLink);
