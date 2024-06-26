@@ -10,8 +10,8 @@ import * as authErrors from "./authErorrs.json";
 
 const isProduction = process.env.NODE_ENV === "production";
 const baseURL = isProduction
-  ? process.env.BASE_URL_PRODUCTION
-  : process.env.BASE_URL_DEVELOPMENT;
+  ? process.env.NEXT_PUBLIC_BASE_URL_PRODUCTION
+  : process.env.NEXT_PUBLIC_BASE_URL_DEVELOPMENT;
 
 // Email Sign Up
 export const emailSignUp = async (email: string, password: string) => {
