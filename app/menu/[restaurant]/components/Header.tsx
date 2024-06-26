@@ -107,6 +107,7 @@ const Header = ({
           value={inputValue}
           onChange={handleOnChange}
           placeholder={"Search for " + restaurantName + " items"}
+          autoComplete="off"
           className="appearance-none font-normal border border-[#e8ebeb] bg-[#f5f5f5] w-full h-full pl-10 pr-4"
         />
         {showSearchResults && inputValue.trim().length > 0 && (
@@ -145,7 +146,8 @@ const Header = ({
           <button
             className="flex gap-2 px-6 py-2 justify-center border-[2px] border-[#eee]"
             onClick={async () => {
-              await auth.signOut().then();
+              await auth.signOut();
+              await fetch("/api/logout");
               router.push("/login");
             }}
           >

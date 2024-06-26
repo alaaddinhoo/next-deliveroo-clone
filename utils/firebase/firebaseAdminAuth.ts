@@ -32,7 +32,7 @@ export const emailSignUp = async (email: string, password: string) => {
     const url = new URL(verificationLink);
     const mode = url.searchParams.get("mode");
     const oobCode = url.searchParams.get("oobCode");
-    const customVerificationLink = `http://localhost:3000/verifyAccount?mode=${mode}&oobCode=${oobCode}&email=${email}`;
+    const customVerificationLink = `http://localhost:3000/accountVerified?mode=${mode}&oobCode=${oobCode}`;
 
     // Send the custom verification email
     await sendVerificationEmail(email, customVerificationLink);
@@ -74,7 +74,7 @@ export const resendVerificationLink = async (email: string) => {
     const url = new URL(verificationLink);
     const mode = url.searchParams.get("mode");
     const oobCode = url.searchParams.get("oobCode");
-    const customVerificationLink = `http://localhost:3000/verifyAccount?mode=${mode}&oobCode=${oobCode}&email=${email}`;
+    const customVerificationLink = `http://localhost:3000/accountVerified?mode=${mode}&oobCode=${oobCode}`;
 
     // Send the custom verification email
     await sendVerificationEmail(email, customVerificationLink);

@@ -130,7 +130,8 @@ const Header = () => {
           <button
             className="flex gap-2 px-6 py-2 justify-center border-[2px] border-[#eee]"
             onClick={async () => {
-              await auth.signOut().then();
+              await auth.signOut();
+              await fetch("/api/logout");
               router.push("/login");
             }}
           >

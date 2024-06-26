@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import NextTopLoader from "nextjs-toploader";
 import { Heart } from "lucide-react";
 import Link from "next/link";
 
@@ -20,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <NextTopLoader color="#00ccbb" />
         <div className="md:hidden bg-primary w-screen h-screen text-white text-center grid place-content-center text-3xl ">
           <div className="max-w-[60vw]">
             Only desktop version available right now.

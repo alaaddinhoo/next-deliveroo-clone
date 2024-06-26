@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { clientConfig } from "./config";
 import {
   getFirestore,
   collection,
@@ -34,7 +35,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(clientConfig);
 export const db = getFirestore(firebaseApp);
 export const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
@@ -58,14 +60,14 @@ onAuthStateChanged(auth, (user) => {
 export const googleSignIn = async (auth: Auth) => {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
-  return JSON.parse(JSON.stringify(result.user)); // Ensure returning a plain object
+  return result;
 };
 
 // Facebook Sign In
 export const facebookSignIn = async (auth: Auth) => {
   const provider = new FacebookAuthProvider();
   const result = await signInWithPopup(auth, provider);
-  return JSON.parse(JSON.stringify(result.user)); // Ensure returning a plain object
+  return result;
 };
 
 // Sign Out
@@ -89,6 +91,7 @@ export const verifyUser = async (oobCode: string) => {
   try {
     // Serialize the user credential to ensure it is a plain object
     await applyActionCode(auth, oobCode);
+    await fetch("/api/logout");
   } catch (error: any) {
     // Handle specific Firebase Auth errors
     // let errorMessage = "Error signing in.";
@@ -122,8 +125,8 @@ export const emailSignIn = async (email: string, password: string) => {
       email,
       password
     );
-    const serializedUserCredential = JSON.parse(JSON.stringify(userCredential));
-    return serializedUserCredential;
+    // const serializedUserCredential = JSON.parse(JSON.stringify(userCredential));
+    return userCredential;
   } catch (error: any) {
     // Handle specific Firebase Auth errors
     // let errorMessage = "Error signing in.";

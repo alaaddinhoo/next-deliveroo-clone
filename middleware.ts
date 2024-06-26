@@ -1,72 +1,82 @@
 import { NextRequest, NextResponse } from "next/server";
-import { adminAuth } from "@/utils/firebase/firebaseAdmin"; // Adjust the path based on your project structure
-import { signInWithCustomToken } from "firebase/auth";
-import { auth } from "@/utils/firebase/firebase";
+import {
+  authMiddleware,
+  redirectToHome,
+  redirectToLogin,
+} from "next-firebase-auth-edge";
+import { clientConfig, serverConfig } from "./utils/firebase/config";
+import { resendVerificationLink } from "./utils/firebase/firebaseAdminAuth";
 
-// Define public paths that do not require authentication
-const PUBLIC_PATHS = ["/", "/login", "/signup"]; // Add more paths as needed
+const PUBLIC_PATHS = ["/register", "/login", "/verifyAccount"];
 
 export async function middleware(request: NextRequest) {
-  return NextResponse.next(); // Allow access to public paths without further checks
-  const url = request.nextUrl.clone();
-  const { pathname } = url;
+  return authMiddleware(request, {
+    loginPath: "/api/login",
+    logoutPath: "/api/logout",
+    apiKey: clientConfig.apiKey,
+    cookieName: serverConfig.cookieName,
+    cookieSignatureKeys: serverConfig.cookieSignatureKeys,
+    cookieSerializeOptions: serverConfig.cookieSerializeOptions,
+    serviceAccount: serverConfig.serviceAccount,
+    handleValidToken: async ({ token, decodedToken }, headers) => {
+      // if (PUBLIC_PATHS.includes(request.nextUrl.pathname)) {
+      //   return redirectToHome(request);
+      // }
+      // above if condition checks if the path exists in the PUBLIC_PATHS and since the token is valid,
+      // then if user tries to access /login for example, it performs redirectToHome
 
-  // Check if the current path is in PUBLIC_PATHS
-  if (PUBLIC_PATHS.includes(pathname)) {
-    return NextResponse.next(); // Allow access to public paths without further checks
-  }
+      console.log(request.nextUrl.pathname);
 
-  const tokenCookie = request.cookies.get("__session");
+      if (
+        request.nextUrl.pathname == "/verifyAccount" &&
+        decodedToken.email_verified
+      ) {
+        return redirectToHome(request);
+      }
 
-  // Custom response for debugging
-  return new NextResponse(
-    JSON.stringify({
-      message: "Debugging Middleware",
-      requestUrl: request.url,
-      pathname,
-      tokenCookie,
-    }),
-    { status: 200, headers: { "Content-Type": "application/json" } }
-  );
+      if (request.nextUrl.pathname == "/accountVerified") {
+        return NextResponse.next({
+          request: {
+            headers,
+          },
+        });
+      }
 
-  if (!tokenCookie) {
-    // Redirect to login if no token is found
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
+      console.log(decodedToken);
 
-  try {
-    // Verify Firebase ID token
-    const user = await verifyAuthToken(tokenCookie);
+      // Check if the email is verified
+      if (!decodedToken.email_verified) {
+        // If the user is not on /verifyAccount, redirect them there
+        if (request.nextUrl.pathname !== "/verifyAccount") {
+          return NextResponse.redirect(new URL("/verifyAccount", request.url));
+        }
+      }
 
-    if (!user) {
-      // If verification fails, redirect to login
-      url.pathname = "/login";
-      return NextResponse.redirect(url);
-    }
+      return NextResponse.next({
+        request: {
+          headers,
+        },
+      });
+    },
+    handleInvalidToken: async (reason) => {
+      console.info("Missing or malformed credentials", { reason });
 
-    // Allow access to protected routes
-    return NextResponse.next();
-  } catch (error: any) {
-    console.error("Error verifying auth token:", error.message);
-    // Redirect to login on error
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
+      return redirectToLogin(request, {
+        path: "/login",
+        publicPaths: PUBLIC_PATHS,
+      });
+    },
+    handleError: async (error) => {
+      console.error("Unhandled authentication error", { error });
+
+      return redirectToLogin(request, {
+        path: "/login",
+        publicPaths: PUBLIC_PATHS,
+      });
+    },
+  });
 }
 
-async function verifyAuthToken(token: any) {
-  try {
-    // Verify Firebase auth token
-    const userCredential = await signInWithCustomToken(auth, token);
-    return userCredential.user;
-  } catch (error: any) {
-    console.error("Firebase authentication error:", error.message);
-    throw error;
-  }
-}
-
-// Configuration for middleware to apply to specific routes
 export const config = {
-  matcher: ["/restaurants"], // Define routes to protect (all the above code applies on these)
+  matcher: ["/", "/((?!_next|api|.*\\.).*)", "/api/login", "/api/logout"],
 };

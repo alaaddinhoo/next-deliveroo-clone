@@ -23,18 +23,6 @@ interface EmailLoginFormValues {
 export default function Login() {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
-  // if (auth.currentUser) {
-  //   router.push("/restaurants");
-  // }
-
-  // useEffect(() => {
-  //   console.log(user);
-
-  //   if (user) {
-  //     router.push("/restaurants");
-  //   }
-  // }, [user]);
-
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
   const [channel, setChannel] = useState<null | string>(null);
@@ -49,9 +37,15 @@ export default function Login() {
   const onSubmit = async (data: z.infer<typeof EmailLoginZod>) => {
     try {
       const result = await emailSignIn(data.email, data.password);
-      console.log(result);
+      const idToken = await result.user.getIdToken();
+      console.log(idToken);
+      await fetch("/api/login", {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
       if (!result.user.emailVerified) {
-        resendVerificationLink(result.user.email);
+        resendVerificationLink(result.user.email!);
         router.push(`/verifyAccount&email=${result.user.email}`);
       }
       router.push("/restaurants");
@@ -63,7 +57,14 @@ export default function Login() {
 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn(auth);
+      const result = await googleSignIn(auth);
+      console.log(result);
+      const idToken = await result.user.getIdToken();
+      await fetch("/api/login", {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
       router.push("/restaurants"); // Redirect to dashboard after sign in
     } catch (error) {
       console.error("Error with Google sign-in: ", error);
@@ -72,7 +73,13 @@ export default function Login() {
 
   const handleFacebookSignIn = async () => {
     try {
-      await facebookSignIn(auth);
+      const result = await facebookSignIn(auth);
+      const idToken = await result.user.getIdToken();
+      await fetch("/api/login", {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
       router.push("/restaurants"); // Redirect to dashboard after sign in
     } catch (error) {
       console.error("Error with Facebook sign-in: ", error);
@@ -104,10 +111,28 @@ export default function Login() {
 
       {!channel && (
         <div className="grow space-y-4  w-[360px] content-center mx-auto">
-          {/* <div>{loading && "loading..."}</div> */}
-          {/* <div>
-            {auth.currentUser ? auth.currentUser.email : "not signed in"}
-          </div> */}
+          <div>{loading && "loading..."}</div>
+          <div>
+            {auth.currentUser
+              ? auth.currentUser.email +
+                " verified: " +
+                auth.currentUser.emailVerified
+              : "not signed in"}
+          </div>
+
+          {user && (
+            <button
+              className="flex gap-2 px-6 py-2 justify-center border-[2px] border-[#eee]"
+              onClick={async () => {
+                await auth.signOut().then();
+                await fetch("/api/logout");
+                router.push("/login");
+              }}
+            >
+              <div>Sign Out</div>
+            </button>
+          )}
+
           <div className="text-xl mb-8">Login to your account</div>
 
           <button
