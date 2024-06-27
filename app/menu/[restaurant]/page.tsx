@@ -191,8 +191,8 @@ export default function Menu({ params }: any) {
           <div className="flex flex-col items-center bg-white max-w-[300px] mx-auto text-center">
             <FileWarningIcon color="#abadad" size={62} />
             <div className="font-normal text-md text-[#abadad] mt-2">
-              No menu was added for this restaurant. Only "SALT" restaurant has
-              a menu.
+              No menu was added for this restaurant. Only one restaurant has a
+              menu.
             </div>
             <button
               className="px-12 py-4 mt-6 text-white bg-[#00ccbb]"
