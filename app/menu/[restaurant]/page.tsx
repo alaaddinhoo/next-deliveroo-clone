@@ -15,15 +15,22 @@ import {
   getDocumentById,
   getMenuByRestaurantID,
 } from "@/utils/firebase/firebase";
+
 import { useRouter } from "next/navigation";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { useEffect, useState, useRef } from "react";
-import { Item, Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
+import {
+  CartItem,
+  Item,
+  Restaurant,
+  RestaurantMenu,
+} from "@/utils/typesFirebase";
 import { useInView } from "react-intersection-observer";
 
 import MenuModal from "./components/MenuModal";
 import Header from "./components/Header";
 import { MenuSkeleton } from "./components/MenuSkeleton";
+import CartComponent from "./components/CartComponent";
 
 export default function Menu({ params }: any) {
   const [openModal, setOpenModal] = useState(false);
@@ -35,6 +42,7 @@ export default function Menu({ params }: any) {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
     const fetchRestaurantData = async () => {
@@ -50,10 +58,11 @@ export default function Menu({ params }: any) {
         console.error("Error fetching menu:", error);
       }
     };
+
     fetchRestaurantData();
     fetchRestaurantMenuData();
     setLoadingData(false);
-  }, []);
+  }, [user, params.restaurant]);
 
   const handleScroll = (id: string) => {
     const element = document.getElementById(id);
@@ -263,18 +272,10 @@ export default function Menu({ params }: any) {
                   ))}
                 </div>
 
-                <div className="flex flex-col self-start grow items-center p-12 bg-white shadow-sm sticky top-[18vh]">
-                  <ShoppingBasket color="#abadad" size={36} />
-                  <div className="font-normal text-sm text-[#abadad] mt-2">
-                    Your basket is empty
-                  </div>
-                  <button
-                    className="w-full py-4 mt-6 text-white bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
-                    disabled={true}
-                  >
-                    Go to checkout
-                  </button>
-                </div>
+                <CartComponent
+                  cartItems={cartItems}
+                  setCartItems={setCartItems}
+                />
               </div>
             </div>
           </div>
@@ -285,6 +286,8 @@ export default function Menu({ params }: any) {
         menuItem={selectedItem}
         openModal={openModal}
         setOpenModal={() => setOpenModal(false)}
+        restaurantID={restaurantData?.name!}
+        category={"testing"}
       />
     </div>
   );

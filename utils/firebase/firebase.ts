@@ -11,6 +11,8 @@ import {
   getDocs,
   QuerySnapshot,
   DocumentData,
+  updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import * as authErrors from "./authErorrs.json";
 import {
@@ -24,6 +26,7 @@ import {
   applyActionCode,
   Auth,
 } from "firebase/auth";
+import { CartItem } from "../typesFirebase";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -227,4 +230,13 @@ export const getAllDocumentsFromCollection = async <T>(
     console.error("Error fetching data from collection:", error);
     throw error;
   }
+};
+
+export const addItemToCart = async (userId: string, cartItem: CartItem) => {
+  const db = getFirestore();
+  const userDocRef = doc(db, "users", userId);
+
+  await updateDoc(userDocRef, {
+    cart: arrayUnion(cartItem),
+  });
 };

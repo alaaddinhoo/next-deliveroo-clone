@@ -142,8 +142,8 @@ const Header = ({
         )}
       </div>
 
-      <div className="flex gap-2 font-normal  items-center">
-        <div>{user?.email}</div>
+      <div className="flex gap-2 font-light items-center">
+        {/* <div>{user?.email}</div> */}
 
         {user && (
           <button

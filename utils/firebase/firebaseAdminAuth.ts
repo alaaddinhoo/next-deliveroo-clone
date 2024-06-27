@@ -1,6 +1,7 @@
 "use server"; // must run on the server since Admin SDK can only run on secure environments
 import { createUserWithEmailAndPassword, Auth } from "firebase/auth";
 import { adminAuth } from "@/utils/firebase/firebaseAdmin";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import { sendVerificationEmail } from "@/utils/email/send-email";
 import { auth } from "./firebase";
 import * as authErrors from "./authErorrs.json";
@@ -41,6 +42,11 @@ export const emailSignUp = async (email: string, password: string) => {
 
     // Send the custom verification email
     await sendVerificationEmail(email, customVerificationLink);
+
+    // Create a new document in the "users" collection with the email
+    const db = getFirestore(); // Initialize Firestore
+    const userDocRef = doc(db, "users", userCredential.user.uid);
+    await setDoc(userDocRef, { email, cart: [] });
 
     // Serialize the user credential to ensure it is a plain object
     const serializedUserCredential = JSON.parse(

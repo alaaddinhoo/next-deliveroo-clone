@@ -39,3 +39,22 @@ export interface AddonItem {
   type: "choice" | "remove";
   price?: number;
 }
+
+export interface CartItem {
+  restaurantID: string;
+  category: string;
+  name: string;
+  image: string;
+  subTitle: string;
+  description: string;
+  price: number;
+  quantity: number;
+  addons: Array<{
+    title: string;
+    items: Array<{
+      name: string;
+      type: string;
+      price?: number; // Optional, since "remove" type doesn't have a price
+    }>;
+  }>;
+}
