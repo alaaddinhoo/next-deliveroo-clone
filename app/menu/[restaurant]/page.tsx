@@ -115,6 +115,7 @@ export default function Menu({ params }: any) {
         restaurantMenu={menuData}
         setOpenModal={setOpenModal}
         setSelectedItem={setSelectedItem}
+        cartItems={cartItems}
       />
 
       {/* *********** content *********** */}

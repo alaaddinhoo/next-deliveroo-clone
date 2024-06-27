@@ -5,13 +5,19 @@ import { LogOut, Search, ShoppingBasket, Star, User } from "lucide-react";
 import { auth } from "@/utils/firebase/firebase";
 import { useRouter } from "next/navigation";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
-import { Item, Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
+import {
+  CartItem,
+  Item,
+  Restaurant,
+  RestaurantMenu,
+} from "@/utils/typesFirebase";
 
 interface Props {
   restaurantName: string | null;
   restaurantMenu: RestaurantMenu | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<Item | null>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  cartItems: CartItem[];
 }
 
 const Header = ({
@@ -19,6 +25,7 @@ const Header = ({
   restaurantMenu,
   setSelectedItem,
   setOpenModal,
+  cartItems,
 }: Props) => {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
@@ -85,6 +92,12 @@ const Header = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Calculate total cart price
+  const cartTotal = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="h-[72px] px-[64px] flex gap-6 items-center justify-between border-b border-[#eee] sticky top-0 bg-white z-[99]">
@@ -165,7 +178,7 @@ const Header = ({
         </div>
         <div className="flex gap-2 px-4 py-2 border-[2px] border-[#eee] font-light">
           <ShoppingBasket color="#00ccbb" />
-          <div>AED 0</div>
+          <div>AED {cartTotal.toFixed(2)}</div>
         </div>
       </div>
     </div>
