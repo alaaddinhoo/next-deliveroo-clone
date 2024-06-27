@@ -112,13 +112,13 @@ export default function Login() {
       {!channel && (
         <div className="grow space-y-4  w-[360px] content-center mx-auto">
           <div>{loading && "loading..."}</div>
-          <div>
+          {/* <div>
             {auth.currentUser
               ? auth.currentUser.email +
                 " verified: " +
                 auth.currentUser.emailVerified
               : "not signed in"}
-          </div>
+          </div> */}
 
           {user && (
             <button
