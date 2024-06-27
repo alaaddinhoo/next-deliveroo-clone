@@ -26,11 +26,12 @@ import {
   RestaurantMenu,
 } from "@/utils/typesFirebase";
 import { useInView } from "react-intersection-observer";
-
+import { db } from "@/utils/firebase/firebase";
 import MenuModal from "./components/MenuModal";
 import Header from "./components/Header";
 import { MenuSkeleton } from "./components/MenuSkeleton";
 import CartComponent from "./components/CartComponent";
+import { doc, getDoc } from "@firebase/firestore";
 
 export default function Menu({ params }: any) {
   const [openModal, setOpenModal] = useState(false);
@@ -43,6 +44,33 @@ export default function Menu({ params }: any) {
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      if (user) {
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDocSnap = await getDoc(userDocRef);
+
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            if (userData && userData.cart) {
+              const cartItemsData: CartItem[] = userData.cart;
+              setCartItems(cartItemsData);
+            } else {
+              console.log("No cart data found for the user.");
+            }
+          } else {
+            console.log("User document does not exist.");
+          }
+        } catch (error) {
+          console.error("Error fetching cart data:", error);
+        }
+      }
+    };
+
+    fetchCartData();
+  }, []);
 
   useEffect(() => {
     const fetchRestaurantData = async () => {

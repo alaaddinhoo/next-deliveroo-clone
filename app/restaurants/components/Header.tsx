@@ -6,7 +6,9 @@ import { auth } from "@/utils/firebase/firebase";
 import { useRouter } from "next/navigation";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { searchMenu, searchRestaurants } from "@/utils/http";
-import { Item, Restaurant } from "@/utils/typesFirebase";
+import { CartItem, Item, Restaurant } from "@/utils/typesFirebase";
+import { doc, getDoc } from "@firebase/firestore";
+import { db } from "@/utils/firebase/firebase";
 
 const Header = () => {
   const router = useRouter();
@@ -14,6 +16,7 @@ const Header = () => {
   const [signOut] = useSignOut(auth);
   const [searchResults, setSearchResults] = useState<Restaurant[] | null>(null);
   const [inputValue, setInputValue] = useState("");
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   // State to control visibility of search results container
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -55,6 +58,39 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchCartData = async () => {
+      if (user) {
+        try {
+          const userDocRef = doc(db, "users", user.uid);
+          const userDocSnap = await getDoc(userDocRef);
+
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            if (userData && userData.cart) {
+              const cartItemsData: CartItem[] = userData.cart;
+              setCartItems(cartItemsData);
+            } else {
+              console.log("No cart data found for the user.");
+            }
+          } else {
+            console.log("User document does not exist.");
+          }
+        } catch (error) {
+          console.error("Error fetching cart data:", error);
+        }
+      }
+    };
+
+    fetchCartData();
+  }, []);
+
+  // Calculate total cart price
+  const cartTotal = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="h-[72px] px-[64px] flex gap-6 items-center justify-between border-b border-[#eee] sticky top-0 bg-white z-[99]">
@@ -149,7 +185,7 @@ const Header = () => {
         </div>
         <div className="flex gap-2 px-4 py-2 border-[2px] border-[#eee] font-light">
           <ShoppingBasket color="#00ccbb" />
-          <div>AED 0</div>
+          <div>AED {cartTotal.toFixed(2)}</div>
         </div>
       </div>
     </div>
