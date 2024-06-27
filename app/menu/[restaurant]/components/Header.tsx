@@ -8,8 +8,8 @@ import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
 import { Item, Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
 
 interface Props {
-  restaurantName: string;
-  restaurantMenu: RestaurantMenu;
+  restaurantName: string | null;
+  restaurantMenu: RestaurantMenu | null;
   setSelectedItem: React.Dispatch<React.SetStateAction<Item | null>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -111,7 +111,10 @@ const Header = ({
           className="appearance-none font-normal border border-[#e8ebeb] bg-[#f5f5f5] w-full h-full pl-10 pr-4"
         />
         {showSearchResults && inputValue.trim().length > 0 && (
-          <div className="relative z-[90] top-0 max-h-[35vh] overflow-y-scroll w-full flex flex-col gap-1 bg-white font-normal">
+          <div
+            ref={searchResultsRef}
+            className="relative z-[90] top-0 max-h-[35vh] overflow-y-scroll w-full flex flex-col gap-1 bg-white font-normal"
+          >
             {searchResults?.map((item) => (
               <div
                 key={item.name}

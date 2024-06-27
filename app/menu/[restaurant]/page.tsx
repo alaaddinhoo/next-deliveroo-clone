@@ -10,7 +10,6 @@ import {
   Star,
   Users,
 } from "lucide-react";
-
 import {
   auth,
   getDocumentById,
@@ -18,25 +17,21 @@ import {
 } from "@/utils/firebase/firebase";
 import { useRouter } from "next/navigation";
 import { useAuthState, useSignOut } from "react-firebase-hooks/auth";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Item, Restaurant, RestaurantMenu } from "@/utils/typesFirebase";
+import { useInView } from "react-intersection-observer";
 
 import MenuModal from "./components/MenuModal";
 import Header from "./components/Header";
 import { MenuSkeleton } from "./components/MenuSkeleton";
 
 export default function Menu({ params }: any) {
-  // async function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
-  //   const data = (await searchRestaurants(e.target.value, "")) as any;
-  //   console.log(e.currentTarget);
-  //   console.log(data);
-  //   // restaurants = data;
-  // }
   const [openModal, setOpenModal] = useState(false);
   const [restaurantData, setRestaurantData] = useState<Restaurant | null>(null);
   const [menuData, setMenuData] = useState<RestaurantMenu | null>(null);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [loadingData, setLoadingData] = useState(true);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
@@ -60,10 +55,6 @@ export default function Menu({ params }: any) {
     setLoadingData(false);
   }, []);
 
-  if (!restaurantData || !menuData) {
-    return <MenuSkeleton />;
-  }
-
   const handleScroll = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -71,10 +62,47 @@ export default function Menu({ params }: any) {
     }
   };
 
+  // Create a ref for each category
+  const categoryRefs = useRef<{ el: HTMLDivElement; name: string }[]>([]);
+
+  const setCategoryRef = (el: HTMLDivElement | null, name: string) => {
+    if (el && !categoryRefs.current.find((ref) => ref.name === name)) {
+      categoryRefs.current.push({ el, name });
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveCategory(entry.target.getAttribute("id"));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    categoryRefs.current.forEach((ref) => {
+      observer.observe(ref.el);
+    });
+
+    // clean up function
+    return () => {
+      categoryRefs.current.forEach((ref) => {
+        observer.unobserve(ref.el);
+      });
+    };
+  }, [menuData]);
+
+  if (!restaurantData && !menuData) {
+    return <MenuSkeleton />;
+  }
+
   return (
     <div>
       <Header
-        restaurantName={restaurantData.name}
+        restaurantName={restaurantData?.name!}
         restaurantMenu={menuData}
         setOpenModal={setOpenModal}
         setSelectedItem={setSelectedItem}
@@ -94,7 +122,7 @@ export default function Menu({ params }: any) {
           <div className="flex gap-6">
             <div className="w-[30%] h-[30vh] relative">
               <Image
-                src={restaurantData.coverImage}
+                src={restaurantData?.coverImage!}
                 fill
                 alt="cover image"
               ></Image>
@@ -172,10 +200,12 @@ export default function Menu({ params }: any) {
               <div className="px-[64px] flex gap-4">
                 {menuData?.categories.map((c, index) => (
                   <div
-                    className={`font-normal cursor-pointer text-[#00ccbb] py-1 ${
-                      index == 0
+                    key={c.name}
+                    className={`font-normal cursor-pointer text-[#00ccbb] py-1 
+                    ${
+                      activeCategory === c.name
                         ? "bg-[#00ccbb] text-white px-4 rounded-full"
-                        : undefined
+                        : ""
                     }`}
                     onClick={() => handleScroll(c.name)}
                   >
@@ -185,27 +215,32 @@ export default function Menu({ params }: any) {
               </div>
             </div>
 
-            <div className="  bg-[#f9fbfa] pt-8">
+            <div className="bg-[#f9fbfa] pt-8">
               <div className="flex gap-4 px-[64px]">
-                <div className="flex flex-col flex-wrap gap-12 grow ">
-                  {menuData?.categories.map((c) => (
-                    <div key={c.name} id={c.name} className="scroll-m-[200px]">
+                <div className="flex flex-col flex-wrap gap-12 grow">
+                  {menuData?.categories.map((c, index) => (
+                    <div
+                      key={c.name}
+                      id={c.name}
+                      className="scroll-m-[200px]"
+                      ref={(el) => setCategoryRef(el, c.name)}
+                    >
                       <div className="text-2xl">{c.name}</div>
                       <div className="pt-2 pb-4 font-light">
                         {c.description}
                       </div>
-                      <div className="grid grid-cols-3 gap-4  ">
+                      <div className="grid grid-cols-3 gap-4">
                         {c.items.map((i, index) => (
                           <div
                             key={i.name + index}
-                            className="flex justify-between  bg-white p-6 shadow-sm cursor-pointer"
+                            className="flex justify-between bg-white p-6 shadow-sm cursor-pointer"
                             onClick={() => {
                               setSelectedItem(i);
                               setOpenModal(true);
                             }}
                           >
                             <div className="space-y-2 max-w-[150px]">
-                              <div> {i.name}</div>
+                              <div>{i.name}</div>
                               <div className="font-light text-sm text-gray-400 line-clamp-2">
                                 {i.description}
                               </div>
@@ -228,7 +263,7 @@ export default function Menu({ params }: any) {
                   ))}
                 </div>
 
-                <div className="flex flex-col self-start grow items-center p-12  bg-white shadow-sm  sticky top-[0px]">
+                <div className="flex flex-col self-start grow items-center p-12 bg-white shadow-sm sticky top-[18vh]">
                   <ShoppingBasket color="#abadad" size={36} />
                   <div className="font-normal text-sm text-[#abadad] mt-2">
                     Your basket is empty
@@ -250,7 +285,7 @@ export default function Menu({ params }: any) {
         menuItem={selectedItem}
         openModal={openModal}
         setOpenModal={() => setOpenModal(false)}
-      ></MenuModal>
+      />
     </div>
   );
 }
