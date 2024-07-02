@@ -7,6 +7,7 @@ import {
 import { clientConfig, serverConfig } from "./utils/firebase/config";
 
 const PUBLIC_PATHS = ["/register", "/login", "/verifyAccount"];
+const ALWAYS_ALLOW = ["/", "/login"];
 
 export async function middleware(request: NextRequest) {
   return authMiddleware(request, {
@@ -23,6 +24,14 @@ export async function middleware(request: NextRequest) {
       // }
       // above if condition checks if the path exists in the PUBLIC_PATHS and since the token is valid,
       // then if user tries to access /login for example, it performs redirectToHome
+
+      if (ALWAYS_ALLOW.includes(request.nextUrl.pathname)) {
+        return NextResponse.next({
+          request: {
+            headers,
+          },
+        });
+      }
 
       console.log(request.nextUrl.pathname);
 

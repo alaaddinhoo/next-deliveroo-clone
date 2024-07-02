@@ -63,8 +63,14 @@ export default function AccountVerified() {
           <div className="mb-8 flex flex-col gap-4 items-center text-center">
             <MailSearch size={72} color="#00ccbb" />
             <div className="text-3xl">Your account is verified</div>
-            <Link href="/login" className="text-[#a6b1b3] font-normal w-full">
+            <div className="text-[#a6b1b3] font-normal w-full">
               You can now proceed to login to your account.
+            </div>
+            <Link
+              href="/login"
+              className="bg-primary text-white font-normal w-full"
+            >
+              Go to Login
             </Link>
           </div>
         )}
