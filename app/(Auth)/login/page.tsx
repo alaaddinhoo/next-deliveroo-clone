@@ -91,7 +91,7 @@ export default function Login() {
       <HomeHeader />
 
       {!channel && (
-        <div className="grow space-y-4  max-w-[350px] content-center mx-auto">
+        <div className="grow space-y-4  max-w-[355px] content-center mx-auto">
           <div className="text-xl mb-8">Login to your account</div>
 
           <button

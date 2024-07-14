@@ -8,6 +8,7 @@ import Image from "next/image";
 import {
   ChevronDown,
   LocateIcon,
+  LogOut,
   Menu,
   ShoppingBasketIcon,
   User2,
@@ -18,6 +19,8 @@ import Link from "next/link";
 import { SvgComponent as LeftSvgComponent } from "./components/LeftSvgComponent";
 import { SvgComponent as RightSvgComponent } from "./components/RightSvgComponent";
 import { Footer } from "@/components/Footer";
+import { auth } from "@/utils/firebase/firebase";
+
 import { BrandsSplide } from "./components/BrandsSplide";
 import {
   Sheet,
@@ -29,6 +32,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 // const json = [
 //   {
@@ -866,6 +870,8 @@ console.log(updatedJson);
 // ];
 
 export default function Home() {
+  const [user, loading] = useAuthState(auth);
+
   const router = useRouter();
 
   const handlePostData = async () => {
@@ -910,24 +916,40 @@ export default function Home() {
               </Sheet>
             </div>
 
-            <div className="hidden md:flex gap-5 items-center">
+            <div className="hidden md:flex gap-5 items-center font-light">
               {/* <button className="flex items-center p-2 gap-2 bg-white border-[2px] border-[#eee] font-light">
               <ChevronDown className="text-primary" />
               <div>Partner with us</div>
             </button> */}
 
-              <Link
-                href="/login"
-                className="flex items-center gap-2 p-2 bg-white border-[2px] border-[#eee] font-light"
-              >
-                <User2 className="text-primary" />
-                <div>Sign Up or Log in</div>
-              </Link>
+              {!user && (
+                <Link
+                  href="/login"
+                  className="flex items-center gap-2 p-2 bg-white border-[2px] border-[#eee] "
+                >
+                  <User2 className="text-primary" />
+                  <div>Sign Up or Log in</div>
+                </Link>
+              )}
 
-              <button className="flex items-center gap-2 p-2 bg-white border-[2px] border-[#eee] font-light">
+              {user && (
+                <button
+                  className="flex gap-2 px-6 py-2 bg-white items-center justify-center border-[2px] border-[#eee]"
+                  onClick={async () => {
+                    await auth.signOut().then();
+                    await fetch("/api/logout");
+                    router.push("/login");
+                  }}
+                >
+                  <LogOut color="#00ccbb" size={16} />
+                  <div>Sign Out</div>
+                </button>
+              )}
+
+              {/* <button className="flex items-center gap-2 p-2 bg-white border-[2px] border-[#eee] font-light">
                 <ShoppingBasketIcon className="text-primary" />
                 <div>0 AED</div>
-              </button>
+              </button> */}
             </div>
           </div>
 

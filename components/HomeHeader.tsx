@@ -53,7 +53,7 @@ const HomeHeader = () => {
 
       <div className="hidden md:flex gap-2 font-light text-[16px]">
         {!user && <LoginButton />}
-        <AccountButton />
+        {/* <AccountButton /> */}
         {user && (
           <button
             className="flex gap-2 px-6 py-2 items-center justify-center border-[2px] border-[#eee]"
