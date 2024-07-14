@@ -110,7 +110,7 @@ export default function Restaurants() {
             {/* <div className="text-[22px]">Top picks in your neighbourhood</div> */}
             {/* <TopPicks /> */}
 
-            <div className="space-y-4">
+            <div className="space-y-4 max-w-[60%]">
               <div className="text-[20px]">
                 Choose from a varitey of options
               </div>
@@ -181,7 +181,7 @@ export default function Restaurants() {
                   />
                 )}
 
-                <div className="grid grid-cols-6 gap-4 w-full justify-evenly font-normal ">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-4 w-full justify-evenly font-normal ">
                   {data.map((t: Restaurant) => (
                     <Link
                       href={"/menu/" + t.objectID}

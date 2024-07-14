@@ -96,7 +96,7 @@ export default function Sidebar({ setFilterString, filterString }: Props) {
   };
 
   return (
-    <div className="mr-[24px] h-full space-y-6 sticky top-[80px] max-h-[90vh] overflow-auto no-scrollbar">
+    <div className="hidden lg:block mr-[24px] h-full space-y-6 sticky top-[80px] max-h-[90vh] overflow-auto no-scrollbar">
       <div className="flex gap-24">
         <div className="flex gap-4">
           <Image
