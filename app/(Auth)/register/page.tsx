@@ -17,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "@/utils/firebase/firebase";
+import HomeHeader from "@/components/HomeHeader";
 
 interface EmailRegisterFormValues {
   email: string;
@@ -80,7 +81,7 @@ const Register = () => {
   return (
     <>
       <div className="flex flex-col h-[100vh]">
-        <div className="h-[72px] px-[20vw] flex justify-between gap-6 items-center border-b border-[#eee] sticky top-0 bg-white z-[99]">
+        {/* <div className="h-[72px] px-[20vw] flex justify-between gap-6 items-center border-b border-[#eee] sticky top-0 bg-white z-[99]">
           <Link href="/">
             <Image
               width="131"
@@ -100,7 +101,9 @@ const Register = () => {
               <div>Account</div>
             </div>
           </div>
-        </div>
+        </div> */}
+
+        <HomeHeader />
 
         {!channel && (
           <div className="grow space-y-4  w-[360px] content-center mx-auto">

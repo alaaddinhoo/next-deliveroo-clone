@@ -1,11 +1,11 @@
 // app/login/page.tsx
 "use client";
-import { ArrowLeft, Eye, EyeOff, HomeIcon, Mail, User } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { googleSignIn, facebookSignIn } from "@/utils/firebase/firebase";
 import { z } from "zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { EmailLoginZod } from "@/utils/typesZod";
@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import { auth, emailSignIn } from "@/utils/firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { resendVerificationLink } from "@/utils/firebase/firebaseAdminAuth";
+import HomeHeader from "@/components/HomeHeader";
 
 interface EmailLoginFormValues {
   email: string;
@@ -87,52 +88,10 @@ export default function Login() {
   };
   return (
     <div className="flex flex-col h-[100vh]">
-      <div className="h-[72px] px-[20vw] flex justify-between gap-6 items-center border-b border-[#eee] sticky top-0 bg-white z-[99]">
-        <Link href="/">
-          <Image
-            width="131"
-            height="122"
-            src="https://consumer-component-library.roocdn.com/30.2.0/static/images/logo-teal.svg"
-            alt="logo"
-          ></Image>
-        </Link>
-
-        <div className="flex gap-2 font-light text-[16px]">
-          <div className="flex items-center gap-2 px-4 py-2 border-[2px] border-[#eee]">
-            <HomeIcon color="#00ccbb" size={16} />
-            <Link href="/login">Sign up or log in</Link>
-          </div>
-          <div className="flex items-center gap-2 px-4 py-2  border-[2px] border-[#eee]">
-            <User color="#00ccbb" size={20} />
-            <div>Account</div>
-          </div>
-        </div>
-      </div>
+      <HomeHeader />
 
       {!channel && (
-        <div className="grow space-y-4  w-[360px] content-center mx-auto">
-          <div>{loading && "loading..."}</div>
-          {/* <div>
-            {auth.currentUser
-              ? auth.currentUser.email +
-                " verified: " +
-                auth.currentUser.emailVerified
-              : "not signed in"}
-          </div> */}
-
-          {user && (
-            <button
-              className="flex gap-2 px-6 py-2 justify-center border-[2px] border-[#eee]"
-              onClick={async () => {
-                await auth.signOut().then();
-                await fetch("/api/logout");
-                router.push("/login");
-              }}
-            >
-              <div>Sign Out</div>
-            </button>
-          )}
-
+        <div className="grow space-y-4  max-w-[350px] content-center mx-auto">
           <div className="text-xl mb-8">Login to your account</div>
 
           <button

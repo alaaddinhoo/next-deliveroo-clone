@@ -3,6 +3,7 @@ import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
 import { Heart } from "lucide-react";
 import Link from "next/link";
+import HydrationResolver from "@/components/HydrationResolver";
 
 export const metadata: Metadata = {
   title: "Deliveroo Clone",
@@ -19,14 +20,17 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <NextTopLoader color="#00ccbb" />
-        <div className="md:hidden bg-primary w-screen h-screen text-white text-center grid place-content-center text-3xl ">
+        {/* <div className="md:hidden bg-primary w-screen h-screen text-white text-center grid place-content-center text-3xl ">
           <div className="max-w-[60vw]">
             Only desktop version available right now.
           </div>
-        </div>
+        </div> */}
 
-        <div className="hidden md:flex min-h-[100vh] flex-col">
-          <div className="grow">{children}</div>
+        {/* <div className="hidden md:flex min-h-[100vh] flex-col"> */}
+        <div className="flex min-h-[100vh] flex-col">
+          <HydrationResolver>
+            <div className="grow">{children}</div>
+          </HydrationResolver>
           <div className="bg-gradient-to-r text-xl from-[#00ccbb] h-[10vh] w-full flex items-center justify-center text-white font-semibold">
             <span>Made with&nbsp;</span>
             <span className="inline-block">
