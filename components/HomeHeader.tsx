@@ -30,7 +30,7 @@ const LoginButton = () => {
 
 const AccountButton = () => {
   return (
-    <div className="flex justify-center items-center gap-2 px-4 py-2  border-[2px] border-[#eee]">
+    <div className="flex items-center gap-2 px-4 py-2  border-[2px] border-[#eee]">
       <User color="#00ccbb" size={20} />
       <div>Account</div>
     </div>
@@ -71,7 +71,7 @@ const HomeHeader = () => {
 
       <Sheet>
         <SheetTrigger asChild className="block md:hidden">
-          <button className="flex items-center gap-2 px-4 py-2 border-[2px] border-[#eee]">
+          <button className="flex items-center gap-2 p-2 border-[2px] border-[#eee]">
             <Menu color="#00ccbb" size={22} />
           </button>
         </SheetTrigger>
@@ -85,10 +85,10 @@ const HomeHeader = () => {
           <div className="grid gap-2 py-8 font-light text-[16px]">
             {!user && <LoginButton />}
 
-            <AccountButton />
+            {/* <AccountButton /> */}
             {user && (
               <button
-                className="flex gap-2 px-6 py-2 items-center justify-center border-[2px] border-[#eee]"
+                className="flex gap-2 px-6 py-2 items-center border-[2px] border-[#eee]"
                 onClick={async () => {
                   await auth.signOut().then();
                   await fetch("/api/logout");
