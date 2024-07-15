@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 import {
   ArrowLeft,
   ChevronRight,
@@ -236,21 +238,32 @@ export default function Menu({ params }: any) {
         {!loadingData && menuData && (
           <div>
             <div className="border-[#eee] border py-6 sticky top-[72px] bg-white">
-              <div className="px-[4vw] md:px-[64px] flex gap-4">
-                {menuData?.categories.map((c, index) => (
-                  <div
-                    key={c.name}
-                    className={`font-normal cursor-pointer text-[#00ccbb] py-1 
+              <div className="px-[4vw] md:px-[64px]">
+                <Splide
+                  options={{
+                    rewind: true,
+                    autoWidth: true,
+                    gap: "16px",
+                    drag: "free",
+                    pagination: false,
+                    arrows: false,
+                  }}
+                >
+                  {menuData?.categories.map((c, index) => (
+                    <SplideSlide
+                      key={c.name}
+                      className={`font-normal cursor-pointer text-[#00ccbb] py-1  
                     ${
                       activeCategory === c.name
                         ? "bg-[#00ccbb] text-white px-4 rounded-full"
                         : ""
                     }`}
-                    onClick={() => handleScroll(c.name)}
-                  >
-                    {c.name}
-                  </div>
-                ))}
+                      onClick={() => handleScroll(c.name)}
+                    >
+                      {c.name}
+                    </SplideSlide>
+                  ))}
+                </Splide>
               </div>
             </div>
 
