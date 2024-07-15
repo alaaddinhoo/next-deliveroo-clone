@@ -4,7 +4,7 @@ import { ShoppingBasket } from "lucide-react";
 export const MenuSkeleton = () => {
   return (
     <>
-      <Header searchPlaceholder={"Loading..."} />
+      {/* <Header searchPlaceholder={"Loading..."} /> */}
       <div className="py-[20px] flex flex-col items-stretch ">
         <div className="px-[4vw] md:px-[64px] space-y-4 mb-8 ">
           <Skeleton className="w-[150px] h-[25px] rounded-none" />
