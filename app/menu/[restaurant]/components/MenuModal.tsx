@@ -1,3 +1,5 @@
+"use client";
+
 import Modal from "@/components/Modals";
 import { Item } from "@/utils/typesFirebase";
 import { MinusCircle, PlusCircle } from "lucide-react";

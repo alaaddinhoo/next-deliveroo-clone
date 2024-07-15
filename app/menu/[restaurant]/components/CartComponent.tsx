@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { CartItem } from "@/utils/typesFirebase"; // Assuming you have a CartItem type or interface defined
