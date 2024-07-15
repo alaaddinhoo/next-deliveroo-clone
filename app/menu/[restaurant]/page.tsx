@@ -148,7 +148,7 @@ export default function Menu({ params }: any) {
 
       {/* *********** content *********** */}
       <div className="py-[20px] flex flex-col items-stretch ">
-        <div className="px-[64px] space-y-4 mb-8 ">
+        <div className="px-[4vw] md:px-[64px] space-y-4 mb-8 ">
           <button
             className="w-full mx-auto text-[#00ccbb] font-normal flex items-center gap-2"
             onClick={() => router.back()}
@@ -157,12 +157,13 @@ export default function Menu({ params }: any) {
             <div>Go Back</div>
           </button>
 
-          <div className="flex gap-6">
-            <div className="w-[30%] h-[30vh] relative">
+          <div className="flex flex-col lg:flex-row gap-6">
+            <div className="w-[100%] md:w-[30%] h-[30vh] relative">
               <Image
                 src={restaurantData?.coverImage!}
                 fill
                 alt="cover image"
+                className="object-cover"
               ></Image>
             </div>
 
@@ -183,7 +184,7 @@ export default function Menu({ params }: any) {
                   <p className="text-[#4d7c1b]">New on Deliveroo</p>
                 )}
                 <p className="line-clamp-1">· 0.3 km away ·</p>
-                <p className="line-clamp-1">AED 20.00 minimum ·</p>
+                {/* <p className="line-clamp-1">AED 20.00 minimum ·</p> */}
 
                 {restaurantData?.deliveryFee && (
                   <p>AED {restaurantData?.deliveryFee + " delivery"}</p>
@@ -235,7 +236,7 @@ export default function Menu({ params }: any) {
         {!loadingData && menuData && (
           <div>
             <div className="border-[#eee] border py-6 sticky top-[72px] bg-white">
-              <div className="px-[64px] flex gap-4">
+              <div className="px-[4vw] md:px-[64px] flex gap-4">
                 {menuData?.categories.map((c, index) => (
                   <div
                     key={c.name}
@@ -254,7 +255,7 @@ export default function Menu({ params }: any) {
             </div>
 
             <div className="bg-[#f9fbfa] pt-8">
-              <div className="flex gap-4 px-[64px]">
+              <div className="flex gap-4 px-[4vw] md:px-[64px]">
                 <div className="flex flex-col flex-wrap gap-12 grow">
                   {menuData?.categories.map((c, index) => (
                     <div
@@ -267,7 +268,7 @@ export default function Menu({ params }: any) {
                       <div className="pt-2 pb-4 font-light">
                         {c.description}
                       </div>
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                         {c.items.map((i, index) => (
                           <div
                             key={i.name + index}
@@ -292,6 +293,7 @@ export default function Menu({ params }: any) {
                                 width={150}
                                 height={150}
                                 alt="product image"
+                                className="w-full h-full object-cover"
                               />
                             </div>
                           </div>
@@ -301,10 +303,12 @@ export default function Menu({ params }: any) {
                   ))}
                 </div>
 
-                <CartComponent
-                  cartItems={cartItems}
-                  setCartItems={setCartItems}
-                />
+                <div className="hidden lg:block">
+                  <CartComponent
+                    cartItems={cartItems}
+                    setCartItems={setCartItems}
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -160,6 +160,11 @@ const Header = () => {
                   <div>Sign Out</div>
                 </button>
               )}
+
+              <div className="flex gap-2 px-6 py-2 items-center border-[2px] border-[#eee] font-light">
+                <ShoppingBasket color="#00ccbb" size={18} />
+                <div>AED {cartTotal.toFixed(2)}</div>
+              </div>
             </div>
             <SheetFooter>
               <SheetClose asChild>

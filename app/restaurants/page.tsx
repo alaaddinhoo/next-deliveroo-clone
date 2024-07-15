@@ -113,7 +113,7 @@ export default function Restaurants() {
 
             <CategorySlider />
 
-            <Slider />
+            {/* <Slider /> */}
 
             {data != null ? (
               <div className="space-y-4">

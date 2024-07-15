@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const CategorySlider = () => {
   return (
-    <>
-      <div className="text-[20px] mb-4">Choose from a varitey of options</div>
+    <div className="space-y-4">
+      <div className="text-[20px]">Choose from a varitey of options</div>
       <Splide
         options={{
           perPage: 6,
@@ -99,7 +99,7 @@ const CategorySlider = () => {
           </div>
         </SplideSlide>
       </Splide>
-    </>
+    </div>
   );
 };
 
