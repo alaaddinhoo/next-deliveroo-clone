@@ -1,3 +1,5 @@
+"use client";
+
 import { batchPostJsonDocuments } from "@/utils/firebase/firebase";
 
 // const json = [
