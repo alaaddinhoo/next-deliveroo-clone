@@ -95,8 +95,13 @@ const MenuModal = ({
   return (
     <Modal open={openModal} onClose={() => setOpenModal(false)}>
       <div className="h-[70vh] overflow-auto font-normal">
-        <div className="relative h-[350px]">
-          <Image src={menuItem.image} alt="product image" fill></Image>
+        <div className="relative h-[30%]">
+          <Image
+            className="object-cover"
+            src={menuItem.image}
+            alt="product image"
+            fill
+          ></Image>
         </div>
         <div className="space-y-4 p-6">
           <div className="space-y-3">

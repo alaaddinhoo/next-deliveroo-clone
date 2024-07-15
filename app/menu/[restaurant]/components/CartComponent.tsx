@@ -106,7 +106,7 @@ const CartComponent = ({ cartItems, setCartItems }: Props) => {
             {cartItems.map((item, index) => (
               <div
                 key={index}
-                className="flex justify-between items-center p-4 bg-[#f9fbfa] rounded-md shadow-sm"
+                className="flex flex-col items-start gap-4 p-4 bg-[#f9fbfa] rounded-md shadow-sm"
               >
                 <div className="flex gap-4 items-center">
                   <div className="relative w-16 h-16 bg-gray-200 rounded-md overflow-hidden">

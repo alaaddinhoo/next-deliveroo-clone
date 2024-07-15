@@ -20,7 +20,7 @@ export default function Modal({ open, onClose, children }: Props) {
       <div
         onClick={(e) => e.stopPropagation()}
         className={`
-          bg-white max-w-[500px] min-w-[500px] shadow  
+          bg-white max-w-[85vw] max-h-[95vh] md:max-w-[500px] md:max-h-none md:min-w-[500px] shadow  
           ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
         `}
       >
