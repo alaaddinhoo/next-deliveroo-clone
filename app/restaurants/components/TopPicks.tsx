@@ -1,6 +1,6 @@
 "use client";
 import { Restaurant } from "@/utils/typesFirebase";
-import Slider from "./Slider";
+import Slider from "./PromoSlider";
 import { useEffect, useState } from "react";
 import { db, getAllDocumentsFromCollection } from "@/utils/firebase/firebase";
 import { collection, onSnapshot, DocumentData } from "firebase/firestore";

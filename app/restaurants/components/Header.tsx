@@ -111,7 +111,7 @@ const Header = () => {
   );
 
   return (
-    <div className="h-[72px] px-[64px] border-b border-[#eee] sticky top-0 bg-white z-[99] grid items-center">
+    <div className="h-[72px] px-[4vw] md:px-[64px] border-b border-[#eee] sticky top-0 bg-white z-[99] grid items-center">
       {/* mobile */}
       <div className="flex md:hidden gap-6 items-center justify-between">
         <Link href="/">

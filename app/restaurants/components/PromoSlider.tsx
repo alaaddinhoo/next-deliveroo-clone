@@ -142,6 +142,23 @@ export default function Slider() {
           drag: "free",
           pagination: false,
           arrows: false,
+          breakpoints: {
+            640: {
+              perPage: 2,
+            },
+            768: {
+              perPage: 3,
+            },
+            1024: {
+              perPage: 4,
+            },
+            1280: {
+              perPage: 4,
+            },
+            1536: {
+              perPage: 4,
+            },
+          },
         }}
         aria-label="My Favorite Images"
       >

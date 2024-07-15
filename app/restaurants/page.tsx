@@ -19,11 +19,12 @@ import { ChevronLeft, ChevronRight, Star, X } from "lucide-react";
 import Link from "next/link";
 import { getAllDocumentsFromCollection } from "@/utils/firebase/firebase";
 import RestaurantSkeleton from "./components/RestaurantSkeleton";
-import Slider from "./components/Slider";
+import Slider from "./components/PromoSlider";
 import Sidebar from "./components/Sidebar";
 import { FiltersList } from "./components/FiltersList";
+import CategorySlider from "./components/CategorySlider";
 
-const maxPaginationItems = 5;
+const maxPaginationItems = 3;
 
 export default function Restaurants() {
   const [data, setData] = useState<Restaurant[] | null>(null);
@@ -94,10 +95,10 @@ export default function Restaurants() {
   };
 
   return (
-    <div className="">
+    <>
       <Header />
 
-      <div className="flex gap-4 px-[64px] my-8 ">
+      <div className="flex gap-4 px-[4vw] md:px-[64px] my-8 ">
         {/* ////////////////// sidebar ////////////////// */}
         <Sidebar
           setFilterString={setFilterString}
@@ -110,63 +111,7 @@ export default function Restaurants() {
             {/* <div className="text-[22px]">Top picks in your neighbourhood</div> */}
             {/* <TopPicks /> */}
 
-            <div className="space-y-4 max-w-[60%]">
-              <div className="text-[20px]">
-                Choose from a varitey of options
-              </div>
-              <div className="flex gap-2 font-normal">
-                <div className="rounded-md border border-[#eee]  ">
-                  <Image
-                    width={167}
-                    height={69}
-                    className="bg-[#00ccbb] rounded-t-md"
-                    alt="res"
-                    src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/restaurant.png?bg-color=00ccbc&auto=webp&format=png"
-                  />
-                  <div className="p-2 text-sm">Restaurants</div>
-                </div>
-                <div className="rounded-md border border-[#eee]  ">
-                  <Image
-                    width={167}
-                    height={69}
-                    className="bg-[#00ccbb] rounded-t-md"
-                    alt="res"
-                    src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/grocery.png?bg-color=007e8a&auto=webp&format=png"
-                  />
-                  <div className="p-2 text-sm">Groceries</div>
-                </div>
-                <div className="rounded-md border border-[#eee]  ">
-                  <Image
-                    width={167}
-                    height={69}
-                    className="bg-[#00ccbb] rounded-t-md"
-                    alt="res"
-                    src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/flowers.png?bg-color=ebcce2&auto=webp&format=png"
-                  />
-                  <div className="p-2 text-sm">Shopping</div>
-                </div>
-                <div className="rounded-md border border-[#eee]  ">
-                  <Image
-                    width={167}
-                    height={69}
-                    className="bg-[#00ccbb] rounded-t-md"
-                    alt="res"
-                    src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/offers.png?bg-color=cc3a2f&auto=webp&format=png"
-                  />
-                  <div className="p-2 text-sm">Offers</div>
-                </div>
-                <div className="rounded-md border border-[#eee]  ">
-                  <Image
-                    width={167}
-                    height={69}
-                    className="bg-[#00ccbb] rounded-t-md"
-                    alt="res"
-                    src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/coffee.png?bg-color=440063&auto=webp&format=png"
-                  />
-                  <div className="p-2 text-sm">Coffee</div>
-                </div>
-              </div>
-            </div>
+            <CategorySlider />
 
             <Slider />
 
@@ -194,7 +139,7 @@ export default function Restaurants() {
                           alt="restaurant image"
                           fill
                           sizes="200"
-                          className="absolute z-[1]"
+                          className="absolute z-[1] object-cover"
                         ></Image>
                         <div className="space-y-2 absolute z-[2] top-[10px] text-xs font-semibold">
                           <div className="bg-[#bf3f35] text-white py-1 px-2">
@@ -238,7 +183,7 @@ export default function Restaurants() {
             )}
           </div>
 
-          <div className="flex  justify-between items-center place-content-center font-normal mt-8">
+          <div className="flex flex-col gap-8 md:flex-row md:gap-0 justify-between items-center place-content-center font-normal mt-8">
             <div className="flex gap-4 items-center text-slate-500">
               <div className="w-[140px] relative">
                 <Select
@@ -302,6 +247,6 @@ export default function Restaurants() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
