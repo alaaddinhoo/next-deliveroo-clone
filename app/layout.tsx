@@ -28,9 +28,8 @@ export default function RootLayout({
 
         {/* <div className="hidden md:flex min-h-[100vh] flex-col"> */}
         <div className="flex min-h-[100vh] flex-col">
-          <HydrationResolver>
-            <div className="grow">{children}</div>
-          </HydrationResolver>
+          <div className="grow">{children}</div>
+
           <div className="bg-gradient-to-r text-xl from-[#00ccbb] h-[10vh] w-full flex items-center justify-center text-white font-semibold">
             <span>Made with&nbsp;</span>
             <span className="inline-block">
