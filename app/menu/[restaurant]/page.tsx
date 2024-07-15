@@ -179,13 +179,13 @@ export default function Menu({ params }: any) {
                   <Star className="fill-[#4d7c1b] text-[#4d7c1b]" size="14" />
                 </span>
                 {restaurantData?.rating ? (
-                  <p className="text-[#4d7c1b]">
+                  <p className="text-[#4d7c1b] ">
                     {restaurantData?.rating + " Excellent (500+)"}
                   </p>
                 ) : (
                   <p className="text-[#4d7c1b]">New on Deliveroo</p>
                 )}
-                <p className="line-clamp-1">· 0.3 km away ·</p>
+                <p>· 0.3 km away ·</p>
                 {/* <p className="line-clamp-1">AED 20.00 minimum ·</p> */}
 
                 {restaurantData?.deliveryFee && (
