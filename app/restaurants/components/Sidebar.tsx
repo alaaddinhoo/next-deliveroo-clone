@@ -14,6 +14,7 @@ import { FormEvent, useEffect, useState } from "react";
 interface Props {
   setFilterString: (value: string) => void;
   filterString: string;
+  modal: boolean;
 }
 
 // Define the types for filterObject
@@ -23,7 +24,11 @@ interface FilterObject {
   cuisines: string[];
 }
 
-export default function Sidebar({ setFilterString, filterString }: Props) {
+export default function Sidebar({
+  setFilterString,
+  filterString,
+  modal,
+}: Props) {
   const [filterObject, setFilterObject] = useState<FilterObject>({
     offers: [],
     dietary: [],
@@ -98,9 +103,13 @@ export default function Sidebar({ setFilterString, filterString }: Props) {
   };
 
   return (
-    <div className="hidden lg:block mr-[24px] h-full space-y-6 sticky top-[80px] max-h-[90vh] overflow-auto no-scrollbar">
+    <div
+      className={`mr-[24px] h-full space-y-6 sticky top-[80px] max-h-[90vh] overflow-auto no-scrollbar
+    ${modal ? "block p-8" : "hidden lg:block"}
+    `}
+    >
       <div className="flex gap-24">
-        <div className="flex gap-4">
+        <div className="flex flex-col lg:flex gap-4">
           <Image
             src="https://dbhq-deliveroo-riders-website.cdn.prismic.io/dbhq-deliveroo-riders-website/2a9890a1-027e-4017-9954-01954dc5fa3c_new-riders.svg"
             alt="rider"

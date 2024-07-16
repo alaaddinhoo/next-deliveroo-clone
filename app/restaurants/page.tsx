@@ -15,7 +15,13 @@ import Header from "./components/Header";
 import { searchRestaurants, SearchParams } from "@/utils/http";
 import { Restaurant } from "@/utils/typesFirebase";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, Star, X } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  SlidersHorizontal,
+  Star,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { getAllDocumentsFromCollection } from "@/utils/firebase/firebase";
 import RestaurantSkeleton from "./components/RestaurantSkeleton";
@@ -23,6 +29,7 @@ import Slider from "./components/PromoSlider";
 import Sidebar from "./components/Sidebar";
 import { FiltersList } from "./components/FiltersList";
 import CategorySlider from "./components/CategorySlider";
+import FilterModal from "./components/FilterModal";
 
 const maxPaginationItems = 3;
 
@@ -33,6 +40,7 @@ export default function Restaurants() {
   const [totalHits, setTotalHits] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [filterString, setFilterString] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   const fetchData = async () => {
     const options: SearchParams = {
@@ -103,6 +111,7 @@ export default function Restaurants() {
         <Sidebar
           setFilterString={setFilterString}
           filterString={filterString}
+          modal={false}
         />
 
         {/* ////////////////// main content ////////////////// */}
@@ -117,7 +126,19 @@ export default function Restaurants() {
 
             {data != null ? (
               <div className="space-y-4">
-                <div className="text-[20px]">All Restaurants ({totalHits})</div>
+                <div className="flex justify-between items-center">
+                  <div className="text-[20px]">
+                    All Restaurants ({totalHits})
+                  </div>
+
+                  <div
+                    onClick={() => setOpenModal(true)}
+                    className="flex lg:hidden bg-[#eee] px-4 py-2 gap-2 items-center rounded-full text-sm font-normal"
+                  >
+                    <SlidersHorizontal size={16} />
+                    <div>Filter</div>
+                  </div>
+                </div>
 
                 {filterString && (
                   <FiltersList
@@ -247,6 +268,13 @@ export default function Restaurants() {
           </div>
         </div>
       </div>
+
+      <FilterModal
+        filterString={filterString}
+        setFilterString={setFilterString}
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      />
     </>
   );
 }
