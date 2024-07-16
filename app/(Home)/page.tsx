@@ -143,12 +143,14 @@ export default function Home() {
               </div>
             </form>
 
-            <div className="text-sm">
-              <Link href="/login" className="text-primary underline">
-                Log in
-              </Link>
-              &nbsp;for your recent addresses.
-            </div>
+            {!user && (
+              <div className="text-sm">
+                <Link href="/login" className="text-primary underline">
+                  Log in
+                </Link>
+                &nbsp;for your recent addresses.
+              </div>
+            )}
           </div>
         </div>
 
