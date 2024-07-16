@@ -13,6 +13,8 @@ import {
   DocumentData,
   updateDoc,
   arrayUnion,
+  serverTimestamp,
+  setDoc,
 } from "firebase/firestore";
 import * as authErrors from "./authErorrs.json";
 import {
@@ -63,6 +65,26 @@ onAuthStateChanged(auth, (user) => {
 export const googleSignIn = async (auth: Auth) => {
   const provider = new GoogleAuthProvider();
   const result = await signInWithPopup(auth, provider);
+  const user = result.user;
+
+  if (user) {
+    // Check if user document exists
+    const userDocRef = doc(db, "users", user.uid); // Use doc to create a document reference
+    const userDoc = await getDoc(userDocRef);
+
+    if (!userDoc.exists()) {
+      // Create a new document for the user
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        createdAt: serverTimestamp(), // Use serverTimestamp
+        cart: [],
+      });
+      console.log("User document created");
+    }
+  }
   return result;
 };
 
