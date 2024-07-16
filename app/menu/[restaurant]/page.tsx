@@ -205,7 +205,7 @@ export default function Menu({ params }: any) {
             </div>
             <button
               className="px-12 py-4 mt-6 text-white bg-[#00ccbb]"
-              onClick={() => router.push("/menu/zpTtLPI55ZABywYAvDdq")}
+              onClick={() => router.push("/menu/y53pRGU6TqPgABpSD0wN")}
             >
               Take Me There
             </button>
