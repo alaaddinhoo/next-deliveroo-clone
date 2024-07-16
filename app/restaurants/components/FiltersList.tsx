@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
-
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 interface Props {
   filterString: string;
   setFilterString: (value: string) => void;
@@ -41,33 +42,43 @@ export const FiltersList = ({ setFilterString, filterString }: Props) => {
   const values = extractValues(filterString);
 
   return (
-    <div className="flex gap-8 items-center py-4 flex-wrap">
-      <div className="flex gap-2 py-2 flex-wrap">
-        {values.map((item, index) => (
-          <div
-            key={index}
-            className="bg-[#00ccbb] text-white p-2 text-sm flex gap-2 items-center"
-          >
-            <div>
-              {item.type.charAt(0).toUpperCase() + item.type.slice(1)}:{" "}
-              {item.value}
-            </div>
-            <X
-              onClick={() => removeFilter(item.type, item.value)}
-              size={18}
-              className="cursor-pointer"
-            />
-          </div>
-        ))}
-      </div>
-      {filterString != "" && (
-        <button
-          className="font-normal text-md text-[#00ccbb]"
-          onClick={() => setFilterString("")}
+    <Splide
+      options={{
+        rewind: true,
+        autoWidth: true,
+        gap: "8px",
+        drag: "free",
+        pagination: false,
+        arrows: false,
+      }}
+    >
+      {values.map((item, index) => (
+        <SplideSlide
+          key={index}
+          className="bg-[#00ccbb] text-white p-2 text-sm flex gap-2 items-center"
         >
-          Clear filters
-        </button>
-      )}
-    </div>
+          <div>
+            {item.type.charAt(0).toUpperCase() + item.type.slice(1)}:{" "}
+            {item.value}
+          </div>
+          <X
+            onClick={() => removeFilter(item.type, item.value)}
+            size={18}
+            className="cursor-pointer"
+          />
+        </SplideSlide>
+      ))}
+
+      <SplideSlide>
+        {filterString != "" && (
+          <button
+            className="p-2 font-normal text-md text-[#00ccbb]"
+            onClick={() => setFilterString("")}
+          >
+            Clear filters
+          </button>
+        )}
+      </SplideSlide>
+    </Splide>
   );
 };
