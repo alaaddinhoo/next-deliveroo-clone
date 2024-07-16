@@ -46,8 +46,8 @@ export default function Home() {
       {/* First Section */}
       <div className="h-[55vh] md:h-[75vh] bg-[#f0f0f0] relative">
         {/* Header */}
-        <div className="relative z-[100] flex justify-between items-center px-12 md:px-[64px] py-4">
-          <div className="bg-white px-2">
+        <div className="relative z-[100] flex justify-between items-center px-4 md:px-[64px] py-4">
+          <div>
             <Image width={121} height={32} src={brandImage} alt="home page" />
           </div>
 
@@ -118,11 +118,11 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-[90vw] mt-6 md:mt-0 space-y-6 sm:max-w-[600px] sm:w-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:space-y-10 z-[99]">
+        <div className="w-[90vw] mt-16 md:mt-0 space-y-6 sm:max-w-[600px] sm:w-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:space-y-10 z-[99]">
           <div className="text-left text-3xl sm:text-4xl md:text-5xl md:text-center">
             Restaurant food, takeaway and groceries. Delivered.
           </div>
-          <div className="bg-white p-8 space-y-6 font-normal rounded-lg">
+          <div className="bg-white p-8 space-y-6 font-normal rounded-lg shadow-md">
             <div>Enter an address to see what we deliver</div>
             <form
               onSubmit={(e) => {
