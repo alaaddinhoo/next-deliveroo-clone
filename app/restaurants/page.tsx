@@ -30,6 +30,8 @@ import Sidebar from "./components/Sidebar";
 import { FiltersList } from "./components/FiltersList";
 import CategorySlider from "./components/CategorySlider";
 import FilterModal from "./components/FilterModal";
+import { useCartData } from "@/hooks/useCartData";
+import CartModal from "@/components/CartModal";
 
 const maxPaginationItems = 3;
 
@@ -40,7 +42,9 @@ export default function Restaurants() {
   const [totalHits, setTotalHits] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [filterString, setFilterString] = useState("");
-  const [openModal, setOpenModal] = useState(false);
+  const [openFilterModal, setFilterModal] = useState(false);
+  const [openCartModal, setCartModal] = useState(false);
+  const { cartItems, setCartItems } = useCartData();
 
   const fetchData = async () => {
     const options: SearchParams = {
@@ -104,7 +108,7 @@ export default function Restaurants() {
 
   return (
     <>
-      <Header />
+      <Header cartItems={cartItems} setCartModal={setCartModal} />
 
       <div className="flex gap-4 px-[4vw] md:px-[64px] my-8 ">
         {/* ////////////////// sidebar ////////////////// */}
@@ -132,7 +136,7 @@ export default function Restaurants() {
                   </div>
 
                   <div
-                    onClick={() => setOpenModal(true)}
+                    onClick={() => setFilterModal(true)}
                     className="flex lg:hidden bg-[#eee] px-4 py-2 gap-2 items-center rounded-full text-sm font-normal"
                   >
                     <SlidersHorizontal size={16} />
@@ -272,8 +276,15 @@ export default function Restaurants() {
       <FilterModal
         filterString={filterString}
         setFilterString={setFilterString}
-        openModal={openModal}
-        setOpenModal={setOpenModal}
+        openFilterModal={openFilterModal}
+        setFilterModal={setFilterModal}
+      />
+
+      <CartModal
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+        openModal={openCartModal}
+        setOpenModal={setCartModal}
       />
     </>
   );

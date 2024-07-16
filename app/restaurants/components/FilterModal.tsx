@@ -5,18 +5,18 @@ import Sidebar from "./Sidebar";
 interface Props {
   setFilterString: (value: string) => void;
   filterString: string;
-  openModal: boolean;
-  setOpenModal: (value: boolean) => void;
+  openFilterModal: boolean;
+  setFilterModal: (value: boolean) => void;
 }
 
 const FilterModal = ({
   setFilterString,
   filterString,
-  openModal,
-  setOpenModal,
+  openFilterModal,
+  setFilterModal,
 }: Props) => {
   return (
-    <Modal open={openModal} onClose={() => setOpenModal(false)}>
+    <Modal open={openFilterModal} onClose={() => setFilterModal(false)}>
       <Sidebar
         setFilterString={setFilterString}
         filterString={filterString}

@@ -30,13 +30,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-const Header = () => {
+interface Props {
+  cartItems: CartItem[];
+  setCartModal: (value: boolean) => void;
+}
+
+const Header = ({ cartItems, setCartModal }: Props) => {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
   const [searchResults, setSearchResults] = useState<Restaurant[] | null>(null);
   const [inputValue, setInputValue] = useState("");
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   // State to control visibility of search results container
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -79,33 +83,6 @@ const Header = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchCartData = async () => {
-      if (user) {
-        try {
-          const userDocRef = doc(db, "users", user.uid);
-          const userDocSnap = await getDoc(userDocRef);
-
-          if (userDocSnap.exists()) {
-            const userData = userDocSnap.data();
-            if (userData && userData.cart) {
-              const cartItemsData: CartItem[] = userData.cart;
-              setCartItems(cartItemsData);
-            } else {
-              console.log("No cart data found for the user.");
-            }
-          } else {
-            console.log("User document does not exist.");
-          }
-        } catch (error) {
-          console.error("Error fetching cart data:", error);
-        }
-      }
-    };
-
-    fetchCartData();
-  }, []);
-
   // Calculate total cart price
   const cartTotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -126,21 +103,25 @@ const Header = () => {
         </Link>
 
         <Sheet>
-          <SheetTrigger asChild>
-            <div className="flex gap-2">
-              <div className="relative flex gap-2 px-2 py-2 border-[2px] border-[#eee]">
-                <ShoppingBasket color="#00ccbb" />
-                {cartItems.length > 0 && (
-                  <div className="absolute bottom-0 right-0 p-1 flex justify-center bg-primary text-white font-semibold text-xs rounded-full h-auto min-w-[1.35rem]">
-                    {cartItems.length}
-                  </div>
-                )}
-              </div>
+          <div className="flex gap-2">
+            <div
+              onClick={() => setCartModal(true)}
+              className="relative flex gap-2 px-2 py-2 border-[2px] border-[#eee]"
+            >
+              <ShoppingBasket color="#00ccbb" />
+              {cartItems.length > 0 && (
+                <div className="absolute bottom-0 right-0 p-1 flex justify-center bg-primary text-white font-semibold text-xs rounded-full h-auto min-w-[1.35rem]">
+                  {cartItems.length}
+                </div>
+              )}
+            </div>
+            <SheetTrigger asChild>
               <button className="flex items-center gap-2 p-2 border-[2px] border-[#eee]">
                 <Menu color="#00ccbb" size={22} />
               </button>
-            </div>
-          </SheetTrigger>
+            </SheetTrigger>
+          </div>
+
           <SheetContent>
             <SheetHeader>
               {/* <SheetTitle>Edit profile</SheetTitle>

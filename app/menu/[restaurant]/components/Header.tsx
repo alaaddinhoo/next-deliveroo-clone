@@ -38,6 +38,7 @@ interface Props {
   setSelectedItem: React.Dispatch<React.SetStateAction<Item | null>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: CartItem[];
+  setCartModal: (value: boolean) => void;
 }
 
 const Header = ({
@@ -46,6 +47,7 @@ const Header = ({
   setSelectedItem,
   setOpenModal,
   cartItems,
+  setCartModal,
 }: Props) => {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
@@ -133,21 +135,25 @@ const Header = ({
         </Link>
 
         <Sheet>
-          <SheetTrigger asChild className="block md:hidden">
-            <div className="flex gap-2">
-              <div className="relative flex gap-2 px-2 py-2 border-[2px] border-[#eee]">
-                <ShoppingBasket color="#00ccbb" />
-                {cartItems.length > 0 && (
-                  <div className="absolute bottom-0 right-0 p-1 flex justify-center bg-primary text-white font-semibold text-xs rounded-full h-auto min-w-[1.35rem]">
-                    {cartItems.length}
-                  </div>
-                )}
-              </div>
+          <div className="flex gap-2">
+            <div
+              onClick={() => setCartModal(true)}
+              className="relative flex gap-2 px-2 py-2 border-[2px] border-[#eee]"
+            >
+              <ShoppingBasket color="#00ccbb" />
+              {cartItems.length > 0 && (
+                <div className="absolute bottom-0 right-0 p-1 flex justify-center bg-primary text-white font-semibold text-xs rounded-full h-auto min-w-[1.35rem]">
+                  {cartItems.length}
+                </div>
+              )}
+            </div>
+            <SheetTrigger asChild>
               <button className="flex items-center gap-2 p-2 border-[2px] border-[#eee]">
                 <Menu color="#00ccbb" size={22} />
               </button>
-            </div>
-          </SheetTrigger>
+            </SheetTrigger>
+          </div>
+
           <SheetContent>
             <SheetHeader>
               {/* <SheetTitle>Edit profile</SheetTitle>

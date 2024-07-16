@@ -34,9 +34,12 @@ import Header from "./components/Header";
 import { MenuSkeleton } from "./components/MenuSkeleton";
 import CartComponent from "./components/CartComponent";
 import { doc, getDoc } from "@firebase/firestore";
+import { useCartData } from "@/hooks/useCartData";
+import CartModal from "@/components/CartModal";
 
 export default function Menu({ params }: any) {
   const [openModal, setOpenModal] = useState(false);
+  const [openCartModal, setCartModal] = useState(false);
   const [restaurantData, setRestaurantData] = useState<Restaurant | null>(null);
   const [menuData, setMenuData] = useState<RestaurantMenu | null>(null);
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
@@ -45,34 +48,7 @@ export default function Menu({ params }: any) {
   const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   const [signOut] = useSignOut(auth);
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
-  useEffect(() => {
-    const fetchCartData = async () => {
-      if (user) {
-        try {
-          const userDocRef = doc(db, "users", user.uid);
-          const userDocSnap = await getDoc(userDocRef);
-
-          if (userDocSnap.exists()) {
-            const userData = userDocSnap.data();
-            if (userData && userData.cart) {
-              const cartItemsData: CartItem[] = userData.cart;
-              setCartItems(cartItemsData);
-            } else {
-              console.log("No cart data found for the user.");
-            }
-          } else {
-            console.log("User document does not exist.");
-          }
-        } catch (error) {
-          console.error("Error fetching cart data:", error);
-        }
-      }
-    };
-
-    fetchCartData();
-  }, []);
+  const { cartItems, setCartItems } = useCartData();
 
   useEffect(() => {
     const fetchRestaurantData = async () => {
@@ -146,6 +122,7 @@ export default function Menu({ params }: any) {
         setOpenModal={setOpenModal}
         setSelectedItem={setSelectedItem}
         cartItems={cartItems}
+        setCartModal={setCartModal}
       />
 
       {/* *********** content *********** */}
@@ -334,6 +311,13 @@ export default function Menu({ params }: any) {
         setOpenModal={() => setOpenModal(false)}
         restaurantID={restaurantData?.name!}
         category={"testing"}
+      />
+
+      <CartModal
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+        openModal={openCartModal}
+        setOpenModal={setCartModal}
       />
     </div>
   );
