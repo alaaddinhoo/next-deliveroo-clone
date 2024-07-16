@@ -178,7 +178,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-24">
+      <div className="my-24">
         <BrandsSplide />
       </div>
     </>
