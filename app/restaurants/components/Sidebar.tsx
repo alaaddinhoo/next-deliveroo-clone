@@ -109,7 +109,7 @@ export default function Sidebar({
     `}
     >
       <div className="flex gap-24">
-        <div className="flex flex-col lg:flex gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           <Image
             src="https://dbhq-deliveroo-riders-website.cdn.prismic.io/dbhq-deliveroo-riders-website/2a9890a1-027e-4017-9954-01954dc5fa3c_new-riders.svg"
             alt="rider"
