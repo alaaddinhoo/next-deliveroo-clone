@@ -258,11 +258,11 @@ export default function Login() {
             )}
 
             <button
-              disabled={Object.keys(errors).length > 0}
+              disabled={Object.keys(errors).length > 0 || isLoading}
               className="w-full py-4 mt-6 flex gap-2 items-center justify-center text-white bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
             >
               {isLoading && (
-                <Loader2 className="animate-spin" size={22} color="#00ccbb" />
+                <Loader2 className="animate-spin" size={24} color="white" />
               )}
               Continue
             </button>

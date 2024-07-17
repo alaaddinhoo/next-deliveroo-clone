@@ -48,7 +48,7 @@ export function Email(props) {
             <Container className="p-[20px]">
               <Heading className="text-[24px] font-normal text-center p-0 my-[30px] mx-0 leading-9">
                 Click Below to{" "}
-                <strong className="text-[#00ccbb]">Verify</strong> Your
+                <strong className="text-[#00ccbb]">Verify</strong> Your <br />
                 Deliveroo Account
               </Heading>
 
