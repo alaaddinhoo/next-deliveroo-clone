@@ -61,14 +61,15 @@ const Register = () => {
           Authorization: `Bearer ${idToken}`,
         },
       });
+      setIsLoading(false);
       if (result) {
         router.push("/verifyAccount");
       }
     } catch (error: any) {
       console.error("Error signing up: ", error);
       setAuthError(error.message); // Update the authError state with the error message
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const handleGoogleSignIn = async () => {
@@ -322,10 +323,10 @@ const Register = () => {
 
               <button
                 disabled={isLoading}
-                className="w-full py-4 mt-6 flex gap-2 text-white bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
+                className="w-full py-4 mt-6 flex gap-2 items-center justify-center text-white bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
               >
                 {isLoading && (
-                  <Loader2 className="animate-spin" size={72} color="#00ccbb" />
+                  <Loader2 className="animate-spin" size={22} color="#00ccbb" />
                 )}
                 <div>Continue</div>
               </button>

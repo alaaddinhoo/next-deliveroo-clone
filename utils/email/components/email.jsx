@@ -37,7 +37,7 @@ export function Email(props) {
       {/* <Preview>{previewText}</Preview> */}
       <Tailwind>
         <Body className="bg-white my-auto mx-auto font-Stratos px-2">
-          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto max-w-[465px]">
+          <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto max-w-[450px]">
             <Section className="py-[32px] bg-[#00ccbb] h-32">
               <Img
                 src="https://nextjs-deliveroo-clone.netlify.app/deliveroo-white-with-text.png"
