@@ -41,12 +41,12 @@ export function Email(props) {
             <Section className="py-[32px] bg-[#00ccbb] h-32">
               <Img
                 src="https://nextjs-deliveroo-clone.netlify.app/deliveroo-white-with-text.png"
-                height="80"
+                height="55"
                 className="my-0 mx-auto object-contain"
               />
             </Section>
             <Container className="p-[20px]">
-              <Heading className="text-[24px] font-normal text-center p-0 my-[30px] mx-0">
+              <Heading className="text-[24px] font-normal text-center p-0 my-[30px] mx-0 leading-9">
                 Click Below to{" "}
                 <strong className="text-[#00ccbb]">Verify</strong> Your
                 Deliveroo Account
