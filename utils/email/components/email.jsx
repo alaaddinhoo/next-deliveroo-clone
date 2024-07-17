@@ -62,7 +62,7 @@ export function Email(props) {
               </Section>
               <Text className="text-black text-[14px] leading-[24px]">
                 or copy and paste this URL into your browser:{" "}
-                <Link href={url} className="text-blue-600 no-underline">
+                <Link href={url} className="text-gray-400 no-underline">
                   {url}
                 </Link>
               </Text>

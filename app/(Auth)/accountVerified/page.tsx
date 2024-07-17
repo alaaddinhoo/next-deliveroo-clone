@@ -68,7 +68,7 @@ export default function AccountVerified() {
             </div>
             <Link
               href="/login"
-              className="bg-primary text-white font-normal w-full"
+              className="bg-primary py-4 text-white font-normal w-full"
             >
               Go to Login
             </Link>

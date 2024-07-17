@@ -8,7 +8,15 @@ import { googleSignIn, facebookSignIn } from "@/utils/firebase/firebase";
 
 import { emailSignUp } from "@/utils/firebase/firebaseAdminAuth";
 
-import { ArrowLeft, Eye, EyeOff, HomeIcon, Mail, User } from "lucide-react";
+import {
+  ArrowLeft,
+  Eye,
+  EyeOff,
+  HomeIcon,
+  Loader2,
+  Mail,
+  User,
+} from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "@/lib/utils";
@@ -28,6 +36,7 @@ interface EmailRegisterFormValues {
 const Register = () => {
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
@@ -43,6 +52,7 @@ const Register = () => {
 
   const onSubmit = async (data: z.infer<typeof EmailRegisterZod>) => {
     try {
+      setIsLoading(true);
       const result = await emailSignUp(data.email, data.password);
       console.log(result);
       const idToken = await result.stsTokenManager.accessToken;
@@ -58,6 +68,7 @@ const Register = () => {
       console.error("Error signing up: ", error);
       setAuthError(error.message); // Update the authError state with the error message
     }
+    setIsLoading(false);
   };
 
   const handleGoogleSignIn = async () => {
@@ -310,10 +321,13 @@ const Register = () => {
               )}
 
               <button
-                disabled={false}
-                className="w-full py-4 mt-6 text-white bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
+                disabled={isLoading}
+                className="w-full py-4 mt-6 flex gap-2 text-white bg-[#00ccbb] disabled:bg-[#e1e5e6] disabled:text-[#a6b1b3] disabled:cursor-not-allowed"
               >
-                Continue
+                {isLoading && (
+                  <Loader2 className="animate-spin" size={72} color="#00ccbb" />
+                )}
+                <div>Continue</div>
               </button>
               <button className="w-full border py-4 mt-2 text-[#00ccbb] border-[#eee]">
                 Forgot Password?
