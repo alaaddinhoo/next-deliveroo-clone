@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "email": "email dev --dir @/app/utils/email/components"
+    "email": "email dev --dir utils/email/components"
   },
   "dependencies": {
     "@firebase/firestore": "^4.6.3",
