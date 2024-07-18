@@ -131,7 +131,7 @@ export default function Restaurants() {
             {data != null ? (
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <div className="text-[20px]">
+                  <div className="text-[20px]" data-testid="all-restaurants">
                     All Restaurants ({totalHits})
                   </div>
 
