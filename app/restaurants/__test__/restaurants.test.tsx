@@ -1,4 +1,6 @@
-import React from "react";
+/**
+ * @jest-environment jsdom
+ */
 import Restaurants from "../page"; // Adjust the path if necessary
 import { render, screen } from "@testing-library/react";
 

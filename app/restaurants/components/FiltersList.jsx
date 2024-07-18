@@ -1,16 +1,12 @@
 import { X } from "lucide-react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
-interface Props {
-  filterString: string;
-  setFilterString: (value: string) => void;
-}
 
-export const FiltersList = ({ setFilterString, filterString }: Props) => {
+export const FiltersList = ({ setFilterString, filterString }) => {
   // Function to extract values from the filter string
-  const extractValues = (filterStr: string) => {
+  const extractValues = (filterStr) => {
     const regex = /(offers|cuisines|dietary):"(.*?)"/g;
-    const values: { type: string; value: string }[] = [];
+    const values = [];
     let match;
     while ((match = regex.exec(filterStr)) !== null) {
       values.push({ type: match[1], value: match[2] });
@@ -19,7 +15,7 @@ export const FiltersList = ({ setFilterString, filterString }: Props) => {
   };
 
   // Function to remove a filter from the filter string
-  const removeFilter = (type: string, value: string) => {
+  const removeFilter = (type, value) => {
     const regex = new RegExp(`${type}:"${value}"`, "g");
     let newFilterString = filterString.replace(regex, "").trim();
 

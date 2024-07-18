@@ -12,6 +12,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "baseUrl": ".",
+    "types": ["@testing-library/jest-dom"],
     "plugins": [
       {
         "name": "next"
@@ -20,7 +22,7 @@
     "paths": {
       "@/*": ["./*"],
       // "@imgs/*": ["./images/*"],
-      "@logo/*": ["./images/logos/*"],
+      "@logo/*": ["./images/logos/*"]
     }
   },
   "include": [
@@ -34,5 +36,6 @@
     "components/ProtectedRoute.tsx",
     "components/ProtectedRouter.jsx",
     "utils/http.ts"
-  ],"exclude": ["node_modules"]
+  ],
+  "exclude": ["node_modules"]
 }
