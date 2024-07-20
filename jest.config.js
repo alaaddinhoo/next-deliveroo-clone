@@ -1,15 +1,22 @@
 const nextJest = require("next/jest");
 
 const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: "./",
 });
 
-// Add any custom config to be passed to Jest
 const customJestConfig = {
+  preset: "ts-jest",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  transform: {
+    "^.+\\.tsx?$": "babel-jest",
+  },
+  transformIgnorePatterns: ["/node_modules/(?!@splidejs)"],
+  moduleNameMapper: {
+    "\\.(css|less|scss|sass)$": "<rootDir>/__mocks__/styleMock.js",
+    "^@/(.*)$": "<rootDir>/$1",
+    "^@splidejs/react-splide/css$": "<rootDir>/__mocks__/styleMock.js",
+  },
   testEnvironment: "jsdom",
 };
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
 module.exports = createJestConfig(customJestConfig);
