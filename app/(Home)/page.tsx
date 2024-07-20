@@ -36,13 +36,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
+import HydrationResolver from "@/components/HydrationResolver";
 
 export default function Home() {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
 
   return (
-    <>
+    <HydrationResolver>
       {/* First Section */}
       <div className="h-[55vh] md:h-[75vh] bg-[#f0f0f0] relative">
         {/* Header */}
@@ -119,7 +120,10 @@ export default function Home() {
         </div>
 
         <div className="w-[90vw] mt-16 md:mt-0 space-y-6 sm:max-w-[600px] sm:w-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 md:space-y-10 z-[99]">
-          <div className="text-left text-3xl sm:text-4xl md:text-5xl md:text-center">
+          <div
+            data-cy="hero-text"
+            className="text-left text-3xl sm:text-4xl md:text-5xl md:text-center"
+          >
             Restaurant food, takeaway and groceries. Delivered.
           </div>
           <div className="bg-white p-8 space-y-6 font-normal rounded-lg shadow-md">
@@ -137,7 +141,10 @@ export default function Home() {
                   placeholder="Enter your full address"
                   className="appearance-none font-normal w-full h-full focus:outline-none"
                 />
-                <button className="px-4 text-sm grow sm:px-8 sm:text-base py-4 bg-primary rounded-full text-white">
+                <button
+                  data-cy="search-button"
+                  className="px-4 text-sm grow sm:px-8 sm:text-base py-4 bg-primary rounded-full text-white"
+                >
                   Search
                 </button>
               </div>
@@ -183,6 +190,6 @@ export default function Home() {
       <div className="my-24">
         <BrandsSplide />
       </div>
-    </>
+    </HydrationResolver>
   );
 }
