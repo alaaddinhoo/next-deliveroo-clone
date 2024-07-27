@@ -10,6 +10,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FormEvent, useEffect, useState } from "react";
+import React from "react";
 
 interface Props {
   setFilterString: (value: string) => void;

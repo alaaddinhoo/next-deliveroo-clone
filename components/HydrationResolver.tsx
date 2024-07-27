@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactHTMLElement, ReactNode, useEffect, useState } from "react";
+import React from "react";
 
 interface Props {
   children: ReactNode;

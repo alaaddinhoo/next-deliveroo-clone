@@ -37,6 +37,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useAuthState } from "react-firebase-hooks/auth";
 import HydrationResolver from "@/components/HydrationResolver";
+import React from "react";
 
 export default function Home() {
   const [user, loading] = useAuthState(auth);

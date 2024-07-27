@@ -1,4 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import React from "react";
 
 const RestaurantSkeleton = ({ num }: { num: number }) => {
   return (

@@ -1,6 +1,7 @@
 import CartComponent from "@/app/menu/[restaurant]/components/CartComponent";
 import Modal from "./Modals";
 import { CartItem } from "@/utils/typesFirebase";
+import React from "react";
 
 interface Props {
   cartItems: CartItem[];

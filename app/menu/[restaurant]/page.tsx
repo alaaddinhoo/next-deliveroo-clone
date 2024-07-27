@@ -36,6 +36,7 @@ import CartComponent from "./components/CartComponent";
 import { doc, getDoc } from "@firebase/firestore";
 import { useCartData } from "@/hooks/useCartData";
 import CartModal from "@/components/CartModal";
+import React from "react";
 
 export default function Menu({ params }: any) {
   const [openModal, setOpenModal] = useState(false);

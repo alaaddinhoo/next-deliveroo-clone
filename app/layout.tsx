@@ -4,6 +4,7 @@ import NextTopLoader from "nextjs-toploader";
 import { Heart } from "lucide-react";
 import Link from "next/link";
 import HydrationResolver from "@/components/HydrationResolver";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Deliveroo Clone",

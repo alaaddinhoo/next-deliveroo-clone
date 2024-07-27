@@ -32,6 +32,7 @@ import CategorySlider from "./components/CategorySlider";
 import FilterModal from "./components/FilterModal";
 import { useCartData } from "@/hooks/useCartData";
 import CartModal from "@/components/CartModal";
+import React from "react";
 
 const maxPaginationItems = 3;
 

@@ -1,6 +1,7 @@
 import Modal from "@/components/Modals";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
+import React from "react";
 
 interface Props {
   setFilterString: (value: string) => void;

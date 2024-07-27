@@ -15,6 +15,7 @@ import { auth, emailSignIn } from "@/utils/firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { resendVerificationLink } from "@/utils/firebase/firebaseAdminAuth";
 import HomeHeader from "@/components/HomeHeader";
+import React from "react";
 
 interface EmailLoginFormValues {
   email: string;

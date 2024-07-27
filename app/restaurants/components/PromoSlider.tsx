@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Restaurant } from "@/utils/typesFirebase";
 import Link from "next/link";
+import React from "react";
 
 // export default function Slider({ data }: { data: Restaurant[] }) {
 export default function Slider() {

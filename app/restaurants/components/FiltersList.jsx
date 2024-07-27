@@ -1,6 +1,7 @@
 import { X } from "lucide-react";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
+import React from "react";
 
 export const FiltersList = ({ setFilterString, filterString }) => {
   // Function to extract values from the filter string

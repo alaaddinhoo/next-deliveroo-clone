@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Image, { ImageProps } from "next/image";
 import fallbackImage from "@/public/placeholder.svg"; // Adjust the path according to your project structure
+import React from "react";
 
 interface LoadableImageProps extends Omit<ImageProps, "src"> {
   src: string;

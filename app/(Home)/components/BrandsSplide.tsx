@@ -3,6 +3,8 @@ import "@splidejs/react-splide/css";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import React from "react";
+
 export const BrandsSplide = () => {
   const images = [
     "https://img2.storyblok.com/filters:format(webp)/f/62776/256x256/11bf79a2b4/icon-donut.jpg",

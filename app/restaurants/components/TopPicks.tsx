@@ -7,6 +7,8 @@ import { collection, onSnapshot, DocumentData } from "firebase/firestore";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import React from "react";
+
 export default function TopPicks() {
   const [data, setData] = useState<Restaurant[]>([]);
 

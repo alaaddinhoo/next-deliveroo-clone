@@ -13,6 +13,7 @@ import {
   getFirestore,
   updateDoc,
 } from "@firebase/firestore";
+import React from "react";
 
 interface Props {
   cartItems: CartItem[];

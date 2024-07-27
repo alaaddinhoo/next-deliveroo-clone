@@ -8,6 +8,7 @@ import { getFirestore, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useState } from "react";
 import { auth } from "@/utils/firebase/firebase";
+import React from "react";
 
 interface Props {
   menuItem: Item | null;

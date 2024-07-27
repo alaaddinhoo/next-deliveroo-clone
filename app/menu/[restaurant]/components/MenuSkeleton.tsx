@@ -1,6 +1,8 @@
 import Header from "@/components/Headers";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ShoppingBasket } from "lucide-react";
+import React from "react";
+
 export const MenuSkeleton = () => {
   return (
     <>
