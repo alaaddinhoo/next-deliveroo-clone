@@ -47,8 +47,20 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
 }));
 
-it("should render", async () => {
+it("should render All Restaurantst text", async () => {
   render(<Restaurants />);
   const allRestaurantsElement = await screen.findByTestId("all-restaurants");
   expect(allRestaurantsElement).toHaveTextContent("All Restaurants");
+});
+
+it("should render only one restaurant", async () => {
+  render(<Restaurants />);
+  const allRestaurantsElement = await screen.findAllByTestId("restaurant-item"); // should be findAll cuz it'll return an array then we can check length
+  expect(allRestaurantsElement).toHaveLength(1); // expect 1 element
+});
+
+it("should render mock's restaurant name: Test Restaurant", async () => {
+  render(<Restaurants />);
+  const allRestaurantsElement = await screen.findByText("Test Restaurant");
+  expect(allRestaurantsElement).not.toBeNull;
 });

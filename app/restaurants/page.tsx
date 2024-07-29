@@ -152,11 +152,15 @@ export default function Restaurants() {
                   />
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-4 w-full justify-evenly font-normal ">
+                <div
+                  data-testid="restaurant-list"
+                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6 gap-4 w-full justify-evenly font-normal "
+                >
                   {data.map((t: Restaurant) => (
                     <Link
                       href={"/menu/" + t.objectID}
                       key={t.id}
+                      data-testid="restaurant-item"
                       className="shadow-md rounded-md "
                     >
                       <div className="h-[147px]  relative">
