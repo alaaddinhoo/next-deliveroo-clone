@@ -1,9 +1,7 @@
-const { expect, describe, it } = require("@jest/globals");
-/// <reference types="jest" />
-import "@testing-library/jest-dom";
 import React from "react";
 import Restaurants from "../page"; // Adjust the path if necessary
 import { render, screen, waitFor } from "@testing-library/react";
+import { expect } from "@jest/globals";
 import { ReactNode } from "react";
 
 // Mock useRouter:
