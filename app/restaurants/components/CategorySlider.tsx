@@ -2,6 +2,11 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import Image from "next/image";
 import React from "react";
+import RestaurantImage from "../../../images/Restaurants.jpg";
+import GroceriesImage from "../../../images/Groceries.jpg";
+import ShoppingImage from "../../../images/Shopping.jpg";
+import OffersImage from "../../../images/Offers.jpg";
+import CoffeeImage from "../../../images/Coffee.jpg";
 
 const CategorySlider = () => {
   return (
@@ -42,7 +47,7 @@ const CategorySlider = () => {
               height={69}
               className="bg-[#00ccbb] rounded-t-md"
               alt="res"
-              src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/restaurant.png?bg-color=00ccbc&auto=webp&format=png"
+              src={RestaurantImage}
             />
             <div className="p-2 text-sm font-normal">Restaurants</div>
           </div>
@@ -55,7 +60,7 @@ const CategorySlider = () => {
               height={69}
               className="bg-[#00ccbb] rounded-t-md"
               alt="res"
-              src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/grocery.png?bg-color=007e8a&auto=webp&format=png"
+              src={GroceriesImage}
             />
             <div className="p-2 text-sm font-normal">Groceries</div>
           </div>
@@ -68,7 +73,7 @@ const CategorySlider = () => {
               height={69}
               className="bg-[#00ccbb] rounded-t-md"
               alt="res"
-              src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/flowers.png?bg-color=ebcce2&auto=webp&format=png"
+              src={ShoppingImage}
             />
             <div className="p-2 text-sm font-normal">Shopping</div>
           </div>
@@ -81,7 +86,7 @@ const CategorySlider = () => {
               height={69}
               className="bg-[#00ccbb] rounded-t-md"
               alt="res"
-              src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/offers.png?bg-color=cc3a2f&auto=webp&format=png"
+              src={OffersImage}
             />
             <div className="p-2 text-sm font-normal">Offers</div>
           </div>
@@ -94,7 +99,7 @@ const CategorySlider = () => {
               height={69}
               className="bg-[#00ccbb] rounded-t-md"
               alt="res"
-              src="https://co-restaurants.roocdn.com/images/7e2ad5f39b5c41c50bfa385e7646580390530153/shortcut/coffee.png?bg-color=440063&auto=webp&format=png"
+              src={CoffeeImage}
             />
             <div className="p-2 text-sm font-normal">Coffee</div>
           </div>
