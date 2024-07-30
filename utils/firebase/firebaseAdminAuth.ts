@@ -15,7 +15,7 @@ const baseURL = isProduction
   : process.env.NEXT_PUBLIC_BASE_URL_DEVELOPMENT;
 
 // Email Sign Up
-export const emailSignUp = async (email: string, password: string) => {
+export async function emailSignUp(email: string, password: string) {
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -67,9 +67,9 @@ export const emailSignUp = async (email: string, password: string) => {
       throw new Error("An unknown error occurred. Please try again later.");
     }
   }
-};
+}
 
-export const resendVerificationLink = async (email: string) => {
+export async function resendVerificationLink(email: string) {
   try {
     const actionCodeSettings = {
       url: `${baseURL}/verify-email`, // Customize this URL
@@ -99,4 +99,4 @@ export const resendVerificationLink = async (email: string) => {
       throw new Error("The process has failed. Please try again later."); // Default message
     }
   }
-};
+}
